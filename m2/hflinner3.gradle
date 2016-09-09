@@ -17,6 +17,5 @@ jar {
             "Implementation-Version": "3.9.2",
 		    "Main-Class": "edu.gatech.oad.antlab.pkg1.AntLabMain",
 		    "Class-Path": "../../lib/resources.jar")
-		    // try ../../lib?
 	}
 }
