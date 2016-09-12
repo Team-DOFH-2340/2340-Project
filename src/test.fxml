@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10">
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10" fx:controller="Controller">
 
 	<padding>
 			<Insets top="25" right="25" bottom="10" left="25"/>
@@ -29,9 +29,11 @@
 
 	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
 		<Button text="Log In" fx:id="login"
+			onMouseClicked="#login"
 			GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 	
 		<Button text="Register" fx:id="register"
+			onMouseClicked="#register"
 			GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 	</GridPane>
 </GridPane>
