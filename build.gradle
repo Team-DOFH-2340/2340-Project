@@ -1,0 +1,21 @@
+apply plugin: 'java'
+defaultTasks 'jar'
+
+repositories {
+   flatDir {
+       dirs 'lib'
+   }
+}
+
+dependencies {
+    compile name: 'sqlite-jdbc'
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": "Hayden Build",
+            "Implementation-Version": "3.9.2",
+		    "Main-Class": "App",
+		    "Class-Path": "../../lib/sqlite-jdbc.jar")
+	}
+}
