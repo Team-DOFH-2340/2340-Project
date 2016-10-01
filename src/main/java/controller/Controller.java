@@ -1,17 +1,22 @@
+package controller;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import model.UserType;
 public class Controller {
 
     @FXML
     private TextField usernameField;
     @FXML
     private TextField passwordField;
+    @FXML
+    private ChoiceBox<UserType> userTypeField = new ChoiceBox<>();
     @FXML
     private Button logout;
 
@@ -41,6 +46,12 @@ public class Controller {
         }
     }
 
+    @FXML
+    private void initialize() {
+        userTypeField.getItems().setAll(UserType.values());
+        userTypeField.setValue(UserType.USER);
+    }
+
     public void register() {
         System.out.println(usernameField.getText());
         System.out.println(passwordField.getText());
@@ -58,7 +69,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-		/*if (SQLInterface.createLogin(usernameField.getText(), passwordField.getText())) {
+		/*if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText())) {
             System.out.println("registration successful");
 		} else {
 			System.out.println("registration failure");

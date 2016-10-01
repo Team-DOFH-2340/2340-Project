@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +20,9 @@ public enum UserType {
     private UserType(String name, Privilege[] privileges, List<Privilege> extraPrivileges) {
         this.name = name;
         this.privileges = new LinkedList<>(Arrays.asList(privileges));
-        this.privileges.addAll(extraPrivileges);
+        if (extraPrivileges != null) {
+            this.privileges.addAll(extraPrivileges);
+        }
     }
 
     public List<Privilege> getPrivileges() {

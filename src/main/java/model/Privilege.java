@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Defines the abilities that a user of the application can have.
  * Created by Hayden on 10/1/2016.
