@@ -6,6 +6,8 @@ import java.util.List;
  */
 public interface Person {
     List<Privilege> getPrivileges();
+
     String getName();
+
     String getPassword();
 }
