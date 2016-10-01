@@ -1,29 +1,48 @@
 package fxapp;
 
+import controller.LoginController;
 import controller.MainScreenController;
 import controller.SQLInterface;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Person;
 
 import java.io.IOException;
 
 public class MainFXApplication extends Application {
+    public Person currentUser;
+
     @Override
     public void start(Stage stage) throws Exception {
         SQLInterface.init();
         SQLInterface.checkDatabase();
+        mainScreen = stage;
+        boolean loggedIn = showLogin();
+        if (!loggedIn) {
+            return;
+        }
+        initRootLayout(stage);
+    }
 
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-
-        Scene scene = new Scene(root, 400, 300);
+    private boolean showLogin() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource("../login.fxml"));
+        Parent loginRoot = loader.load();
+        Scene scene = new Scene(loginRoot, 400, 300);
+        LoginController controller = loader.getController();
+        controller.setMainApp(this);
         stage.setTitle("Welcome");
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
+        return controller.isLoggedIn;
     }
+
 
     public Stage mainScreen;
     private BorderPane rootLayout;
@@ -31,7 +50,7 @@ public class MainFXApplication extends Application {
     /** Initialize main view. First show registration. */
     private void initRootLayout(Stage mainScreen) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../view/MainScreen.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("../main.fxml"));
         try {
             rootLayout = loader.load();
         } catch (IOException e) {

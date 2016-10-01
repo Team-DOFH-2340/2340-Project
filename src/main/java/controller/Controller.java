@@ -46,36 +46,6 @@ public class Controller {
         }
     }
 
-    @FXML
-    private void initialize() {
-        userTypeField.getItems().setAll(UserType.values());
-        userTypeField.setValue(UserType.USER);
-    }
-
-    public void register() {
-        System.out.println(usernameField.getText());
-        System.out.println(passwordField.getText());
-        Stage stage = new Stage();
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-            Scene scene = new Scene(root, 800, 600);
-            stage.setTitle("Registration");
-            stage.setScene(scene);
-
-            //close the login stage:
-            ((Stage) usernameField.getScene().getWindow()).close();
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-		/*if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText())) {
-            System.out.println("registration successful");
-		} else {
-			System.out.println("registration failure");
-		}*/
-    }
-
     public void logout() {
         System.out.println("logout");
         Stage login = (Stage) logout.getScene().getWindow();

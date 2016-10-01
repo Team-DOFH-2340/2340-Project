@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10" fx:controller="Controller">
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10" fx:controller="controller.RegistrationController">
 
 	<padding>
 			<Insets top="25" right="25" bottom="10" left="25"/>

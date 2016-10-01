@@ -3,15 +3,17 @@ package model;
 import java.util.List;
 
 /**
- * Interface that defines the properties all users of the app have.
+ * Class that defines a user.
  * Created by Hayden on 10/1/2016.
  */
-public interface Person {
-    List<Privilege> getPrivileges();
+public class Person {
+    public UserType type;
+    public String name;
+    public String password;
 
-    String getName();
-
-    String getPassword();
-
-    String getUserType();
+    public Person(UserType type, String name, String password) {
+        this.type = type;
+        this.name = name;
+        this.password = password;
+    }
 }

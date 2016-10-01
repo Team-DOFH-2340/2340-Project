@@ -115,8 +115,6 @@ public class SQLInterface {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-
-        System.out.println("Is a duplicate? " + dup);
         return dup;
     }
 
