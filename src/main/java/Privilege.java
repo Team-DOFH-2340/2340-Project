@@ -3,14 +3,15 @@
  * Created by Hayden on 10/1/2016.
  */
 public enum Privilege {
-    BAN("Ban users"),
-    DELETE("Delete users"),
-    UNBLOCK("Unblock users"),
+    BAN_USER("Ban users"),
+    DELETE_USER("Delete users"),
+    UNBLOCK_USER("Unblock users"),
     VIEW_SOURCES("View water sources"),
     DELETE_REPORTS("Delete water reports"),
     VIEW_TRENDS("View purity history/trends"),
-    VIEW_LOG("View security log");
-
+    VIEW_LOG("View security log"),
+    SUBMIT_WATER_AVAILABILITY("Submit water availability reports"),
+    SUBMIT_WATER_PURITY("Submit water purity reports");
 
     private final String name;
 
