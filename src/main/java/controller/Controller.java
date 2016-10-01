@@ -17,8 +17,6 @@ public class Controller {
     private TextField passwordField;
     @FXML
     private ChoiceBox<UserType> userTypeField = new ChoiceBox<>();
-    @FXML
-    private Button logout;
 
     public void login() {
         System.out.println(usernameField.getText());
@@ -46,21 +44,4 @@ public class Controller {
         }
     }
 
-    public void logout() {
-        System.out.println("logout");
-        Stage login = (Stage) logout.getScene().getWindow();
-        login.close();
-        Stage stage = new Stage();
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene scene = new Scene(root, 400, 300);
-            stage.setTitle("Welcome");
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            // Profit ??
-            e.printStackTrace();
-        }
-    }
 }

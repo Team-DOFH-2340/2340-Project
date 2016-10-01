@@ -4,11 +4,11 @@ import controller.LoginController;
 import controller.MainScreenController;
 import controller.SQLInterface;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Person;
 
@@ -40,12 +40,12 @@ public class MainFXApplication extends Application {
         stage.setTitle("Welcome");
         stage.setScene(scene);
         stage.showAndWait();
-        return controller.isLoggedIn;
+        return controller.loggedIn;
     }
 
 
     public Stage mainScreen;
-    private BorderPane rootLayout;
+    private Pane rootLayout;
 
     /** Initialize main view. First show registration. */
     private void initRootLayout(Stage mainScreen) {
@@ -57,21 +57,19 @@ public class MainFXApplication extends Application {
             System.out.println(e);
         }
 
-        // Give the controller access to the main app.
         MainScreenController controller = loader.getController();
+        controller.user = currentUser;
         controller.setMainApp(this);
 
-        // Set the Main fxapp.MainFXApplication title
-        mainScreen.setTitle("Course Registration");
+        mainScreen.setTitle("Clean Water");
 
-        // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
         mainScreen.setScene(scene);
         mainScreen.show();
     }
 
     public static void main(String...args) {
-        // This method is here so that you get a helpful stacktrace if the app fails to construct.
+        // This method is here so that you get a more helpful stacktrace if the app fails to construct.
         launch(args);
     }
 }

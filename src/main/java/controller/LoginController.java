@@ -1,13 +1,10 @@
 package controller;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import fxapp.MainFXApplication;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Person;
@@ -22,11 +19,9 @@ public class LoginController {
     private TextField usernameField;
     @FXML
     private TextField passwordField;
-    @FXML
-    private ChoiceBox<UserType> userTypeField = new ChoiceBox<>();
 
-    public boolean isLoggedIn = false;
-    private Stage stage;
+    public boolean loggedIn = false;
+
     /**
      * allow for calling back to the main application code if necessary
      * @param main   the reference to the FX Application instance
@@ -40,19 +35,18 @@ public class LoginController {
         System.out.println(passwordField.getText());
         if (SQLInterface.authenticate(usernameField.getText(), passwordField.getText())) {
             System.out.println("login successful");
-            this.isLoggedIn = true;
+            this.loggedIn = true;
             // mainApplication.currentUser = SQLInterface.getUser() GET USER FROM DATABASE, PLACEHOLDER VV
             mainApplication.currentUser = new Person(UserType.ADMIN, this.usernameField.getText(), this.passwordField.getText());
-            Platform.exit();
+            ((Stage) passwordField.getScene().getWindow()).close();
         } else {
             System.out.println("login failure");
         }
     }
 
     public void register() {
-        this.isLoggedIn = false;
+        this.loggedIn = false;
         boolean registered = showRegistration();
-        System.out.println("Registred? " + registered);
     }
 
     private boolean showRegistration() {
