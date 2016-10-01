@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10"
+		  fx:controller="controller.MainScreenController">
 
-<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10" fx:controller="controller.MainScreenController">
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
 
-	<padding>
-			<Insets top="25" right="25" bottom="10" left="25"/>
-	</padding>
-	
-	<Button text="Log Out" fx:id="logout"
-			onMouseClicked="#logout"
-			GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Button text="Log Out" fx:id="logout"
+            onMouseClicked="#logout"
+            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 </GridPane>

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 /**
  * Class that defines a user.
  * Created by Hayden on 10/1/2016.

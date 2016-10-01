@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 import model.Person;
 import model.UserType;
 
-/**
- * Created by Hayden on 10/1/2016.
- */
+/** Controller for the login screen. */
 public class LoginController {
     private MainFXApplication mainApplication;
     @FXML
@@ -24,8 +22,9 @@ public class LoginController {
 
     /**
      * allow for calling back to the main application code if necessary
-     * @param main   the reference to the FX Application instance
-     * */
+     *
+     * @param main the reference to the FX Application instance
+     */
     public void setMainApp(MainFXApplication main) {
         mainApplication = main;
     }
@@ -60,7 +59,7 @@ public class LoginController {
             stage.setScene(scene);
             RegistrationController controller = loader.getController();
             stage.showAndWait();
-            return controller.hasRegistered();
+            return controller.hasRegistered;
         } catch (Exception e) {
             e.printStackTrace();
         }

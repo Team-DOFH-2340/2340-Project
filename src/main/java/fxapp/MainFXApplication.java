@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Person;
@@ -47,7 +46,9 @@ public class MainFXApplication extends Application {
     public Stage mainScreen;
     private Pane rootLayout;
 
-    /** Initialize main view. First show registration. */
+    /**
+     * Initialize main view. First show registration.
+     */
     private void initRootLayout(Stage mainScreen) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainFXApplication.class.getResource("../main.fxml"));
@@ -68,7 +69,7 @@ public class MainFXApplication extends Application {
         mainScreen.show();
     }
 
-    public static void main(String...args) {
+    public static void main(String... args) {
         // This method is here so that you get a more helpful stacktrace if the app fails to construct.
         launch(args);
     }
