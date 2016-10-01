@@ -21,6 +21,14 @@ public enum UserType {
         this.privileges.addAll(extraPrivileges);
     }
 
+    public List<Privilege> getPrivileges() {
+        return this.privileges;
+    }
+
+    public boolean hasPrivilege(Privilege p) {
+        return this.privileges.contains(p);
+    }
+
     @Override
     public String toString() { return name; }
 }
