@@ -47,10 +47,10 @@ public class MainScreenController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainFXApplication.class.getResource("../editProfile.fxml"));
         Parent loginRoot = loader.load();
-        Scene scene = new Scene(loginRoot, 400, 300);
+        Scene scene = new Scene(loginRoot, 350, 350);
         EditProfileController controller = loader.getController();
         controller.setUser(user);
-        stage.setTitle("Welcome");
+        stage.setTitle("Edit Profile");
         stage.setScene(scene);
         stage.showAndWait();
     }

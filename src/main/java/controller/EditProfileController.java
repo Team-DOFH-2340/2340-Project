@@ -23,6 +23,8 @@ public class EditProfileController {
     private Label usernameField;
     @FXML
     private TextField nameField;
+    @FXML
+    private TextField titleField;
 
     @FXML
     private TextField emailField;
@@ -33,23 +35,25 @@ public class EditProfileController {
     @FXML
     private TextField addressLine3Field;
 
-    public boolean loggedIn = false;
-
     @FXML
-    private void initialize() {
+    private void save() {
+        user.name = nameField.getText();
+        user.homeAddress.line1 = addressLine1Field.getText();
+        user.homeAddress.line2 = addressLine2Field.getText();
+        user.homeAddress.line3 = addressLine3Field.getText();
+        user.title =  titleField.getText();
+        // TODO update database
+        ((Stage)emailField.getScene().getWindow()).close();
     }
 
-    /**
-     * allow for calling back to the main application code if necessary
-     *
-     * @param main the reference to the FX Application instance
-     */
-    public void setMainApp(MainFXApplication main) {
-        mainApplication = main;
+    @FXML
+    private void cancel() {
+        ((Stage)emailField.getScene().getWindow()).close();
     }
 
     public void setUser(Person user) {
         this.user = user;
+        this.titleField.setText(user.title);
         this.usernameField.setText(user.username);
         this.nameField.setText(user.name);
         this.emailField.setText(user.email);
