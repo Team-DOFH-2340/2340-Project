@@ -17,5 +17,10 @@ public class Person {
         this.type = type;
         this.username = username;
         this.password = password;
+
+        this.name = "";
+        this.email = "";
+        this.homeAddress = new HomeAddress();
+        this.title = "His majesty";
     }
 }

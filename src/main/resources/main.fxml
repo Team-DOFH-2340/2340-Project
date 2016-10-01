@@ -10,7 +10,10 @@
         <Insets top="25" right="25" bottom="10" left="25"/>
     </padding>
 
+    <Button text="Edit Profile" fx:id="edit"
+            onMouseClicked="#editProfile"
+            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
     <Button text="Log Out" fx:id="logout"
             onMouseClicked="#logout"
-            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 </GridPane>

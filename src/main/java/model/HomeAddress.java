@@ -13,4 +13,10 @@ public class HomeAddress {
         this.line2 = line2;
         this.line3 = line3;
     }
+
+    public HomeAddress() {
+        this.line1 = "";
+        this.line2 = "";
+        this.line3 = "";
+    }
 }

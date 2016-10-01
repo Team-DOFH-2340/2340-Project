@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="25" vgap="10"
+		  fx:controller="controller.EditProfileController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
+
+    <Label text="Editing profile"
+           GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.halignment="center"/>
+    <Label text="User Name:"
+           GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="right"/>
+    <Label fx:id="usernameField"
+               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="Name:"
+           GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="right"/>
+    <TextField fx:id="nameField"
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label text="Email:"
+           GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="right"/>
+    <TextField fx:id="emailField"
+               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <Label text="Address Line 1:"
+           GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="right"/>
+    <TextField fx:id="addressLine1Field"
+               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Label text="Address Line 2:"
+           GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="right"/>
+    <TextField fx:id="addressLine2Field"
+               GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Label text="Address Line 3:"
+           GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="right"/>
+    <TextField fx:id="addressLine3Field"
+               GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+
+    <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" GridPane.columnIndex="0"
+              GridPane.rowIndex="7" GridPane.columnSpan="2">
+        <Button text="Save" fx:id="login"
+                GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Button text="Cancel" fx:id="register"
+                GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    </GridPane>
+</GridPane>

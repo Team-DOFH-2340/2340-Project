@@ -3,8 +3,14 @@ package controller;
 import fxapp.MainFXApplication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import model.Person;
+
+import java.io.IOException;
 
 /**
  * Controller for the main map screen of the app.
@@ -15,6 +21,8 @@ public class MainScreenController {
      */
     private MainFXApplication mainApplication;
 
+    @FXML
+    private Button edit;
     @FXML
     private Button logout;
 
@@ -32,5 +40,18 @@ public class MainScreenController {
     public void logout() {
         System.out.println("Logging out of " + user.name);
         Platform.exit();
+    }
+
+    public void editProfile() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource("../editProfile.fxml"));
+        Parent loginRoot = loader.load();
+        Scene scene = new Scene(loginRoot, 400, 300);
+        EditProfileController controller = loader.getController();
+        controller.setUser(user);
+        stage.setTitle("Welcome");
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

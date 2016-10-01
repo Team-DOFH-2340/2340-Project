@@ -14,16 +14,17 @@ import model.UserType;
 /**
  * Created by Hayden on 10/1/2016.
  */
-public class ProfileEditController {
+public class EditProfileController {
      private MainFXApplication mainApplication;
 
     private Person user;
+
     @FXML
     private Label usernameField;
     @FXML
     private TextField nameField;
-    @FXML
 
+    @FXML
     private TextField emailField;
     @FXML
     private TextField addressLine1Field;
