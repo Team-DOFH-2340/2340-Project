@@ -6,15 +6,16 @@ package model;
  */
 public class Person {
     public UserType type;
+    public String username;
     public String name;
     public String password;
     public String email;
     public HomeAddress homeAddress;
     public String title;
 
-    public Person(UserType type, String name, String password) {
+    public Person(String username, String password, UserType type)  {
         this.type = type;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 }
