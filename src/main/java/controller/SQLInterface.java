@@ -81,14 +81,8 @@ public class SQLInterface {
                 Class.forName("org.sqlite.JDBC");
                 Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
                 Statement stmt = c.createStatement();
-                String sql = "INSERT INTO User("
-                        + "Username, "
-                        + "Password,"
-                        + "User_id)"
-                        + "VALUES("
-                        + "'" + username + "',"
-                        + "'" + password + "',"
-                        + "0)";
+                String sql = String.format("INSERT INTO User(Username,Password, User_id) VALUES('%s','%s',0)",
+                        username, password);
                 stmt.executeUpdate(sql);
                 stmt.close();
                 c.close();
@@ -107,7 +101,7 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Username FROM User WHERE Username = " + "'" + username + "'");
+            ResultSet rs = stmt.executeQuery(String.format("SELECT Username FROM User WHERE Username = '%s'", username));
             while (rs.next()) {
                 dup = true;
             }
@@ -124,11 +118,8 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = "Select User_id FROM User "
-                    + "WHERE "
-                    + "Username = '" + username + "' "
-                    + "AND "
-                    + "Password = '" + password + "'";
+            String sql = String.format("Select User_id FROM User WHERE Username = '%s' AND Password = '%s'",
+                    username, password);
             System.out.println("[" + sql + "]");
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
