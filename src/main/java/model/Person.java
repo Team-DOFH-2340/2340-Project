@@ -15,14 +15,14 @@ public class Person {
 
     public Person() {}
 
-    public Person(String username, String password, UserType type)  {
-        this.type = type;
-        this.username = username;
-        this.password = password;
-
-        this.name = "";
-        this.email = "";
-        this.homeAddress = new HomeAddress();
-        this.title = "Duelmaster";
-    }
+//    public Person(String username, String password, UserType type)  {
+//        this.type = type;
+//        this.username = username;
+//        this.password = password;
+//
+//        this.name = "";
+//        this.email = "";
+//        this.homeAddress = new HomeAddress();
+//        this.title = "Duelmaster";
+//    }
 }

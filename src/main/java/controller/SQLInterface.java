@@ -83,7 +83,7 @@ public class SQLInterface {
     // if so, create a new entry in user table
     // more specifications and such can be added later
     // returns true on success; false on failure
-    public static boolean createLogin(String username, String password) {
+    public static boolean createLogin(String username, String password, String name) {
         if (duplicateUN(username)) {
             return false;
         } else {
@@ -91,8 +91,8 @@ public class SQLInterface {
                 Class.forName("org.sqlite.JDBC");
                 Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
                 Statement stmt = c.createStatement();
-                String sql = String.format("INSERT INTO User(Username,Password, User_id) VALUES('%s','%s',0)",
-                        username, password);
+                String sql = String.format("INSERT INTO User(Username,Password, Name, Title, Email, AddressLine1, AddressLine2, AddressLine3, User_id) VALUES('%s','%s', '%s', 'Duelmaster', '', '', '', '', 0)",
+                        username, password, name);
                 stmt.executeUpdate(sql);
                 stmt.close();
                 c.close();

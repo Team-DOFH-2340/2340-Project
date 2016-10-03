@@ -13,6 +13,8 @@ public class RegistrationController {
     @FXML
     private TextField passwordField;
     @FXML
+    private TextField nameField;
+    @FXML
     private ChoiceBox<UserType> userTypeField = new ChoiceBox<>();
 
     public boolean hasRegistered;
@@ -37,7 +39,7 @@ public class RegistrationController {
         if (invalidLogin) {
             return;
         }
-        if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText())) {
+        if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText(), nameField.getText())) {
             System.out.println("registration successful");
             hasRegistered = true;
             ((Stage) passwordField.getScene().getWindow()).close();
