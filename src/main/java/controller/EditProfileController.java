@@ -42,7 +42,8 @@ public class EditProfileController {
         user.homeAddress.line2 = addressLine2Field.getText();
         user.homeAddress.line3 = addressLine3Field.getText();
         user.title =  titleField.getText();
-        // TODO update database
+        user.email = emailField.getText();
+        SQLInterface.updateUser(user);
         ((Stage)emailField.getScene().getWindow()).close();
     }
 
@@ -59,6 +60,6 @@ public class EditProfileController {
         this.emailField.setText(user.email);
         this.addressLine1Field.setText(user.homeAddress.line1);
         this.addressLine2Field.setText(user.homeAddress.line2);
-        this.addressLine2Field.setText(user.homeAddress.line3);
+        this.addressLine3Field.setText(user.homeAddress.line3);
     }
 }

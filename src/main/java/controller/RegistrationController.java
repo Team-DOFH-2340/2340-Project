@@ -25,6 +25,18 @@ public class RegistrationController {
     }
 
     public void register() {
+        boolean invalidLogin = false;
+        if (usernameField.getText().equals("")) {
+            System.out.println("invalid username");
+            invalidLogin = true;
+        }
+        if (passwordField.getText().equals("")) {
+            System.out.println("invalid password");
+            invalidLogin = true;
+        }
+        if (invalidLogin) {
+            return;
+        }
         if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText())) {
             System.out.println("registration successful");
             hasRegistered = true;

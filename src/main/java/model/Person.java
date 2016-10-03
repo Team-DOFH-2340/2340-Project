@@ -13,6 +13,8 @@ public class Person {
     public HomeAddress homeAddress;
     public String title;
 
+    public Person() {}
+
     public Person(String username, String password, UserType type)  {
         this.type = type;
         this.username = username;
@@ -21,6 +23,6 @@ public class Person {
         this.name = "";
         this.email = "";
         this.homeAddress = new HomeAddress();
-        this.title = "His majesty";
+        this.title = "Duelmaster";
     }
 }

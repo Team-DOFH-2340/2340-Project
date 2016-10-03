@@ -1,10 +1,14 @@
 package controller;
 
+import model.HomeAddress;
+import model.Person;
+
 import java.sql.*;
 
 public class SQLInterface {
 
     private static int counter = 0;
+    private static Person activeUser;
 
     public static void init() {
         Connection c = null;
@@ -56,7 +60,13 @@ public class SQLInterface {
             Statement stmt = c.createStatement();
             String sql = "CREATE TABLE User("
                     + "Username VARCHAR(32) PRIMARY KEY,"
-                    + "Password VARCHAR(32) NOT NULL,	"
+                    + "Password VARCHAR(32) NOT NULL,"
+                    + "Title VARCHAR(32),"
+                    + "Name VARCHAR(32),"
+                    + "Email VARCHAR(32),"
+                    + "AddressLine1 VARCHAR(32),"
+                    + "AddressLine2 VARCHAR(32),"
+                    + "AddressLine3 VARCHAR(32),"
                     + "User_id INT NOT NULL"
                     + ")";
             stmt.executeUpdate(sql);
@@ -118,17 +128,53 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = String.format("Select User_id FROM User WHERE Username = '%s' AND Password = '%s'",
+            String sql = String.format("Select * FROM User WHERE Username = '%s' AND Password = '%s'",
                     username, password);
-            System.out.println("[" + sql + "]");
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 founduser = true;
+                activeUser = new Person();
+                activeUser.homeAddress = new HomeAddress();
+                activeUser.username = rs.getString(1);
+                activeUser.password = rs.getString(2);
+                activeUser.title = rs.getString(3);
+                activeUser.name = rs.getString(4);
+                activeUser.email = rs.getString(5);
+                activeUser.homeAddress.line1 = rs.getString(6);
+                activeUser.homeAddress.line2 = rs.getString(7);
+                activeUser.homeAddress.line3 = rs.getString(8);
             }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         return founduser;
+    }
+
+    public static void updateUser(Person user) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = String.format("UPDATE User SET "
+                    + "Title = '" + user.title + "', "
+                    + "Name = '" + user.name + "', "
+                    + "Email = '" + user.email + "', "
+                    + "AddressLine1 = '" + user.homeAddress.line1 + "', "
+                    + "AddressLine2 = '" + user.homeAddress.line2 + "', "
+                    + "AddressLine3 = '" + user.homeAddress.line3 + "' "
+                    + "WHERE Username = '" + user.username + "'");
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public static Person getUser() {
+        return activeUser;
     }
 }

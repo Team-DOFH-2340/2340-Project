@@ -36,7 +36,7 @@ public class LoginController {
             System.out.println("login successful");
             this.loggedIn = true;
             // mainApplication.currentUser = SQLInterface.getUser() GET USER FROM DATABASE, PLACEHOLDER VV
-            mainApplication.currentUser = new Person(this.usernameField.getText(), this.passwordField.getText(), UserType.ADMIN);
+            mainApplication.currentUser = SQLInterface.getUser();
             ((Stage) passwordField.getScene().getWindow()).close();
         } else {
             System.out.println("login failure");
