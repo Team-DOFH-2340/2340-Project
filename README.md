@@ -1,4 +1,4 @@
 # 2340 Project
 To run
-
-````$ gradle jar && java -jar build/libs/2340-project.jar````
+Open it in IntelliJ yo
+~~````$ gradle jar && java -jar build/libs/2340-project.jar````~~
