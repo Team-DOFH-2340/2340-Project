@@ -64,7 +64,7 @@ public class MainFXApplication extends Application {
 
         mainScreen.setTitle("Clean Water");
 
-        Scene scene = new Scene(rootLayout);
+        Scene scene = new Scene(rootLayout, 400, 300);
         mainScreen.setScene(scene);
         mainScreen.show();
     }

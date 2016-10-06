@@ -54,4 +54,16 @@ public class MainScreenController {
         stage.setScene(scene);
         stage.showAndWait();
     }
+
+    public void submit_report() throws Exception {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource("../submitreport.fxml"));
+        Parent loginRoot = loader.load();
+        Scene scene = new Scene(loginRoot, 400, 300);
+        SubmitReportController controller = loader.getController();
+        stage.setTitle("Submit Report");
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
 }

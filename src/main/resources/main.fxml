@@ -12,8 +12,11 @@
 
     <Button text="Edit Profile" fx:id="edit"
             onMouseClicked="#editProfile"
-            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <Button text="Log Out" fx:id="logout"
             onMouseClicked="#logout"
-            GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Button text="Submit Report" fx:id="submit_report"
+            onMouseClicked="#submit_report"
+            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 </GridPane>

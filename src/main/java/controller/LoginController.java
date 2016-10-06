@@ -54,7 +54,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainFXApplication.class.getResource("../register.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 800, 600);
+            Scene scene = new Scene(root, 400, 300);
             stage.setTitle("Registration");
             stage.setScene(scene);
             RegistrationController controller = loader.getController();
