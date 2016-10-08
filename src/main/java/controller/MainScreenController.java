@@ -25,6 +25,8 @@ public class MainScreenController {
     private Button edit;
     @FXML
     private Button logout;
+    @FXML
+    private Button source_report;
 
     public Person user;
 
@@ -55,14 +57,15 @@ public class MainScreenController {
         stage.showAndWait();
     }
 
-    public void submit_report() throws Exception {
+    public void source_report() throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../submitreport.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("../sourcereport.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 400, 300);
-        SubmitReportController controller = loader.getController();
-        stage.setTitle("Submit Report");
+        SourceReportController controller = loader.getController();
+        controller.setUser(user);
+        stage.setTitle("Source Report");
         stage.setScene(scene);
         stage.showAndWait();
     }

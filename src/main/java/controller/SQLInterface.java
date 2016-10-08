@@ -27,7 +27,7 @@ public class SQLInterface {
     public static void checkDatabase() {
         Connection c = null;
         boolean createLogin = true;
-        boolean createData = true;
+        boolean createWaterSource = true;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -36,8 +36,8 @@ public class SQLInterface {
             while (rs.next()) {
                 if (rs.getString(3).equals("User")) {
                     createLogin = false;
-                } else if (rs.getString(3).equals("Data")) {
-                    createData = false;
+                } else if (rs.getString(3).equals("WaterSource")) {
+                    createWaterSource = false;
                 }
             }
             c.close();
@@ -48,8 +48,8 @@ public class SQLInterface {
         if (createLogin) {
             createLoginTable();
         }
-        if (createData) {
-            // TODO: implement CreateDataTable();
+        if (createWaterSource) {
+            createWaterSourceTable();
         }
     }
 
@@ -68,6 +68,30 @@ public class SQLInterface {
                     + "AddressLine2 VARCHAR(32),"
                     + "AddressLine3 VARCHAR(32),"
                     + "User_id INT NOT NULL"
+                    + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Table created successfully");
+    }
+
+    public static void createWaterSourceTable() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = "CREATE TABLE WaterSource("
+                    + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "User VARCHAR(32)"
+                    + "Date DATE,"
+                    + "HOUR INTEGER,"
+                    + "Minute INTEGER,"
+                    + "Type INTEGER,"
+                    + "Condition INTEGER"
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
