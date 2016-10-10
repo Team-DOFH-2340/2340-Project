@@ -86,7 +86,7 @@ public class SQLInterface {
             Statement stmt = c.createStatement();
             String sql = "CREATE TABLE WaterSource("
                     + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "User VARCHAR(32)"
+                    + "User VARCHAR(32),"
                     + "Date DATE,"
                     + "HOUR INTEGER,"
                     + "Minute INTEGER,"
