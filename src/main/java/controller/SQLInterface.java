@@ -2,8 +2,10 @@ package controller;
 
 import model.HomeAddress;
 import model.Person;
+import model.WaterSourceReport;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class SQLInterface {
 
@@ -88,7 +90,7 @@ public class SQLInterface {
                     + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "User VARCHAR(32),"
                     + "Date DATE,"
-                    + "HOUR INTEGER,"
+                    + "Hour INTEGER,"
                     + "Minute INTEGER,"
                     + "Type INTEGER,"
                     + "Condition INTEGER"
@@ -126,6 +128,25 @@ public class SQLInterface {
             }
         }
         return true;
+    }
+
+    public static boolean createWaterSourceReport(WaterSourceReport report) {
+        boolean success = false;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Type, Condition) VALUES('%s','%s', '%s', '%s', '%s', '%s')",
+                report.getName(), report.getDate(), report.getHour(), report.getMinute(), report.getType(), report.getCondition());
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+            success = true;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return success;
     }
 
     //  see above method, checks for duplicate username
