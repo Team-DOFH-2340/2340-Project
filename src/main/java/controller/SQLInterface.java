@@ -92,6 +92,8 @@ public class SQLInterface {
                     + "Date DATE,"
                     + "Hour INTEGER,"
                     + "Minute INTEGER,"
+                    + "Latitude REAL,"
+                    + "Longitude REAL,"
                     + "Type INTEGER,"
                     + "Condition INTEGER"
                     + ")";
@@ -136,8 +138,8 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Type, Condition) VALUES('%s','%s', '%s', '%s', '%s', '%s')",
-                report.getName(), report.getDate(), report.getHour(), report.getMinute(), report.getType(), report.getCondition());
+            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                report.getName(), report.getDate(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();

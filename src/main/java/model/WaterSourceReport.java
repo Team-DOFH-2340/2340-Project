@@ -11,6 +11,8 @@ public class WaterSourceReport {
     private LocalDate date;
     private int hour;
     private int minute;
+    private double latitude;
+    private double longitude;
     private WaterSourceCondition condition;
     private WaterSourceType type;
 
@@ -45,6 +47,14 @@ public class WaterSourceReport {
     public int getMinute() { return minute; }
 
     public void setMinute(int minute) { this.minute = minute; }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 
     public WaterSourceCondition getCondition() {
         return condition;

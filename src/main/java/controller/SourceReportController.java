@@ -31,7 +31,9 @@ public class SourceReportController {
     @FXML
     private ChoiceBox<Integer> timeHourField;
     @FXML
-    private TextField locationField;
+    private TextField latitudeField;
+    @FXML
+    private TextField longitudeField;
 
     private Person user;
 
@@ -43,8 +45,6 @@ public class SourceReportController {
         conditionField.getItems().setAll(WaterSourceCondition.values());
         conditionField.setValue(WaterSourceCondition.POTABLE);
         this.dateField.setValue(LocalDate.now());
-
-        this.locationField.setDisable(true);
     }
 
     private void configTimeFields() {
@@ -85,6 +85,8 @@ public class SourceReportController {
             } else {
                 newReport.setMinute(45);
             }
+            newReport.setLatitude(Double.parseDouble(latitudeField.getText()));
+            newReport.setLongitude(Double.parseDouble(longitudeField.getText()));
             newReport.setType(typeField.getValue());
             newReport.setCondition(conditionField.getValue());
             SQLInterface.createWaterSourceReport(newReport);
