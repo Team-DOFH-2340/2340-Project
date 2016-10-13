@@ -60,6 +60,7 @@ public class MainFXApplication extends Application {
 
         MainScreenController controller = loader.getController();
         controller.user = currentUser;
+        controller.disableAdminScreen();
         controller.setMainApp(this);
 
         mainScreen.setTitle("Clean Water");

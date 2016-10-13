@@ -1,11 +1,12 @@
 package controller;
 
-import model.HomeAddress;
-import model.Person;
-import model.WaterSourceReport;
+import javafx.scene.control.Alert;
+import model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 
 public class SQLInterface {
 
@@ -69,7 +70,7 @@ public class SQLInterface {
                     + "AddressLine1 VARCHAR(32),"
                     + "AddressLine2 VARCHAR(32),"
                     + "AddressLine3 VARCHAR(32),"
-                    + "User_id INT NOT NULL"
+                    + "UserType INT"
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -89,7 +90,7 @@ public class SQLInterface {
             String sql = "CREATE TABLE WaterSource("
                     + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "User VARCHAR(32),"
-                    + "Date DATE,"
+                    + "Date CHARACTER(10),"
                     + "Hour INTEGER,"
                     + "Minute INTEGER,"
                     + "Latitude REAL,"
@@ -111,16 +112,21 @@ public class SQLInterface {
     // if so, create a new entry in user table
     // more specifications and such can be added later
     // returns true on success; false on failure
-    public static boolean createLogin(String username, String password, String name) {
+    public static boolean createLogin(String username, String password, String name, int usertype) {
         if (duplicateUN(username)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERROR");
+            alert.setHeaderText(null);
+            alert.setContentText("Username already exists in system");
+            alert.showAndWait();
             return false;
         } else {
             try {
                 Class.forName("org.sqlite.JDBC");
                 Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
                 Statement stmt = c.createStatement();
-                String sql = String.format("INSERT INTO User(Username,Password, Name, Title, Email, AddressLine1, AddressLine2, AddressLine3, User_id) VALUES('%s','%s', '%s', 'Duelmaster', '', '', '', '', 0)",
-                        username, password, name);
+                String sql = String.format("INSERT INTO User(Username,Password, Name, Title, Email, AddressLine1, AddressLine2, AddressLine3, Usertype) VALUES('%s','%s', '%s', 'Duelmaster', '', '', '', '', '%s')",
+                        username, password, name, usertype);
                 stmt.executeUpdate(sql);
                 stmt.close();
                 c.close();
@@ -139,7 +145,7 @@ public class SQLInterface {
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
             String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                report.getName(), report.getDate(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
+                report.getName(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
@@ -149,6 +155,32 @@ public class SQLInterface {
             System.exit(0);
         }
         return success;
+    }
+
+    public static ArrayList<WaterSourceReport> getAllReportsInSystem() {
+        ArrayList<WaterSourceReport> collection = new ArrayList<WaterSourceReport>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WaterSource");
+            while (rs.next()) {
+                WaterSourceReport temp = new WaterSourceReport();
+                temp.setName(rs.getString(2));
+                temp.setDate(LocalDate.parse(rs.getString(3)));
+                temp.setHour(rs.getInt(4));
+                temp.setMinute(rs.getInt(5));
+                temp.setLatitude(rs.getInt(6));
+                temp.setLongitude(rs.getInt(7));
+                temp.setType(WaterSourceType.values()[rs.getInt(8)]);
+                temp.setCondition(WaterSourceCondition.values()[rs.getInt(9)]);
+                collection.add(temp);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return collection;
     }
 
     //  see above method, checks for duplicate username
@@ -190,6 +222,7 @@ public class SQLInterface {
                 activeUser.homeAddress.line1 = rs.getString(6);
                 activeUser.homeAddress.line2 = rs.getString(7);
                 activeUser.homeAddress.line3 = rs.getString(8);
+                activeUser.type = UserType.values()[rs.getInt(9)];
             }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

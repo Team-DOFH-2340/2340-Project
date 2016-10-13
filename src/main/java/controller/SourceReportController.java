@@ -52,6 +52,8 @@ public class SourceReportController {
             timeHourField.getItems().add(i);
         }
         timeHourField.setValue(12);
+        latitudeField.setText("33.762909");
+        longitudeField.setText("-84.422675");
 
         timeMinuteField.getItems().add("00");
         timeMinuteField.getItems().add("15");

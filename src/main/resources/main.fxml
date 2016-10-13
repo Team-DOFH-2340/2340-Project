@@ -19,4 +19,7 @@
     <Button text="Source Report" fx:id="source_report"
             onMouseClicked="#source_report"
             GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Button text="Admin Screen" fx:id="admin_screen"
+            onMouseClicked="#admin_screen"
+            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 </GridPane>
