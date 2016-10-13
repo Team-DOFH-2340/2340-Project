@@ -15,6 +15,7 @@
     <TableView fx:id="tableView" GridPane.columnIndex="0"
                GridPane.rowIndex="1">
         <columns>
+            <TableColumn fx:id="idField" text="ID"/>
             <TableColumn fx:id="usernameField" text="Username">
             </TableColumn>
             <TableColumn fx:id="dateField" text="Date">

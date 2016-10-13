@@ -18,6 +18,8 @@ public class AdminViewController {
     @FXML
     private TableView<WaterSourceReport> tableView;
     @FXML
+    private TableColumn<WaterSourceReport, Integer> idField;
+    @FXML
     private TableColumn<WaterSourceReport, String> usernameField;
     @FXML
     private TableColumn<WaterSourceReport, String> dateField;
@@ -37,6 +39,7 @@ public class AdminViewController {
     public void loadData() {
         ArrayList<WaterSourceReport> reports = SQLInterface.getAllReportsInSystem();
 
+        idField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("report_id"));
         usernameField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("name"));
         dateField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("date"));
         hourField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("hour"));

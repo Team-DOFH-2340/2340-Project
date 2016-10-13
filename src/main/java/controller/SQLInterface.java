@@ -166,6 +166,7 @@ public class SQLInterface {
             ResultSet rs = stmt.executeQuery("SELECT * FROM WaterSource");
             while (rs.next()) {
                 WaterSourceReport temp = new WaterSourceReport();
+                temp.setReport_id(rs.getInt(1));
                 temp.setName(rs.getString(2));
                 temp.setDate(LocalDate.parse(rs.getString(3)));
                 temp.setHour(rs.getInt(4));
