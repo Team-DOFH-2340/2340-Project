@@ -23,8 +23,6 @@ public class SourceReportController {
     @FXML
     private ChoiceBox<WaterSourceCondition> conditionField;
     @FXML
-    private TextField nameField;
-    @FXML
     private DatePicker dateField;
     @FXML
     private ChoiceBox<String> timeMinuteField;
@@ -64,37 +62,30 @@ public class SourceReportController {
 
     public void setUser(Person user) {
         this.user = user;
-        this.nameField.setText(user.name);
     }
 
     public void submit() {
-        // make sure no fields are empty, and if so, give error and don't
-        // continue; otherwise, write to database through SQLInterface
-        if (nameField.getText().equals("")) {
-
+        WaterSourceReport newReport = new WaterSourceReport();
+        newReport.setName(user.name);
+        newReport.setDate(dateField.getValue());
+        newReport.setHour(timeHourField.getValue());
+        String minute = timeMinuteField.getValue();
+        if (minute.equals("00")) {
+            newReport.setMinute(0);
+        } else if (minute.equals("15")) {
+            newReport.setMinute(15);
+        } else if (minute.equals("30")) {
+            newReport.setMinute(30);
         } else {
-            WaterSourceReport newReport = new WaterSourceReport();
-            newReport.setName(nameField.getText());
-            newReport.setDate(dateField.getValue());
-            newReport.setHour(timeHourField.getValue());
-            String minute = timeMinuteField.getValue();
-            if (minute.equals("00")) {
-                newReport.setMinute(0);
-            } else if (minute.equals("15")) {
-                newReport.setMinute(15);
-            } else if (minute.equals("30")) {
-                newReport.setMinute(30);
-            } else {
-                newReport.setMinute(45);
-            }
-            newReport.setLatitude(Double.parseDouble(latitudeField.getText()));
-            newReport.setLongitude(Double.parseDouble(longitudeField.getText()));
-            newReport.setType(typeField.getValue());
-            newReport.setCondition(conditionField.getValue());
-            SQLInterface.createWaterSourceReport(newReport);
-            System.out.println("Report entered successfully");
-            ((Stage)nameField.getScene().getWindow()).close();
+            newReport.setMinute(45);
         }
+        newReport.setLatitude(Double.parseDouble(latitudeField.getText()));
+        newReport.setLongitude(Double.parseDouble(longitudeField.getText()));
+        newReport.setType(typeField.getValue());
+        newReport.setCondition(conditionField.getValue());
+        SQLInterface.createWaterSourceReport(newReport);
+        System.out.println("Report entered successfully");
+        ((Stage)submitBtn.getScene().getWindow()).close();
     }
 
     public void cancel() {
