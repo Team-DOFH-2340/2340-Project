@@ -71,4 +71,8 @@ public class WaterSourceReport {
     public void setType(WaterSourceType type) {
         this.type = type;
     }
+
+    public String toInfoWindow() {
+        return "<h3>" + date.toString() + " " + hour + ":" + minute + "</h3>" + condition + "<br/>" + type;
+    }
 }

@@ -93,8 +93,8 @@ public class SQLInterface {
                     + "Date CHARACTER(10),"
                     + "Hour INTEGER,"
                     + "Minute INTEGER,"
-                    + "Latitude REAL,"
-                    + "Longitude REAL,"
+                    + "Latitude NUMERIC,"
+                    + "Longitude NUMERIC,"
                     + "Type INTEGER,"
                     + "Condition INTEGER"
                     + ")";
@@ -144,7 +144,7 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%s', '%s')",
                 report.getName(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
             stmt.executeUpdate(sql);
             stmt.close();
@@ -171,8 +171,8 @@ public class SQLInterface {
                 temp.setDate(LocalDate.parse(rs.getString(3)));
                 temp.setHour(rs.getInt(4));
                 temp.setMinute(rs.getInt(5));
-                temp.setLatitude(rs.getInt(6));
-                temp.setLongitude(rs.getInt(7));
+                temp.setLatitude(rs.getDouble(6));
+                temp.setLongitude(rs.getDouble(7));
                 temp.setType(WaterSourceType.values()[rs.getInt(8)]);
                 temp.setCondition(WaterSourceCondition.values()[rs.getInt(9)]);
                 collection.add(temp);

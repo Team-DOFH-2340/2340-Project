@@ -17,8 +17,6 @@ public class SourceReportController {
     @FXML
     private Button submitBtn;
     @FXML
-    private Button CancelBtn;
-    @FXML
     private ChoiceBox<WaterSourceType> typeField;
     @FXML
     private ChoiceBox<WaterSourceCondition> conditionField;
@@ -34,6 +32,8 @@ public class SourceReportController {
     private TextField longitudeField;
 
     private Person user;
+
+    private MainScreenController mainscreencontroller;
 
     @FXML
     private void initialize() {
@@ -85,7 +85,12 @@ public class SourceReportController {
         newReport.setCondition(conditionField.getValue());
         SQLInterface.createWaterSourceReport(newReport);
         System.out.println("Report entered successfully");
+        mainscreencontroller.refreshMapPins();
         ((Stage)submitBtn.getScene().getWindow()).close();
+    }
+
+    public void linkMainController(MainScreenController controller) {
+        mainscreencontroller = controller;
     }
 
     public void cancel() {

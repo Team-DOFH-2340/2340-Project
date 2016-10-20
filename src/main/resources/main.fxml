@@ -23,5 +23,5 @@
     <Button text="Admin Screen" fx:id="admin_screen"
             onMouseClicked="#admin_screen"
             GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <GoogleMapView GridPane.rowIndex="2" GridPane.columnSpan="2"/>
+    <GoogleMapView fx:id="mapView" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
 </GridPane>

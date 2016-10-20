@@ -4,11 +4,14 @@ import controller.LoginController;
 import controller.MainScreenController;
 import controller.SQLInterface;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Person;
 
 import java.io.IOException;
@@ -65,7 +68,7 @@ public class MainFXApplication extends Application {
 
         mainScreen.setTitle("Clean Water");
 
-        Scene scene = new Scene(rootLayout, 400, 300);
+        Scene scene = new Scene(rootLayout, 800, 600);
         mainScreen.setScene(scene);
         mainScreen.show();
     }
