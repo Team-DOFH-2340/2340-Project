@@ -36,7 +36,7 @@ public class MainFXApplication extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainFXApplication.class.getResource("../login.fxml"));
         Parent loginRoot = loader.load();
-        Scene scene = new Scene(loginRoot, 400, 300);
+        Scene scene = new Scene(loginRoot, 500, 400);
         LoginController controller = loader.getController();
         controller.setMainApp(this);
         stage.setTitle("Welcome");

@@ -37,12 +37,12 @@ public class EditProfileController {
 
     @FXML
     private void save() {
-        user.name = nameField.getText();
-        user.homeAddress.line1 = addressLine1Field.getText();
-        user.homeAddress.line2 = addressLine2Field.getText();
-        user.homeAddress.line3 = addressLine3Field.getText();
-        user.title =  titleField.getText();
-        user.email = emailField.getText();
+        user.setName(nameField.getText());
+        user.getHomeAddress().setLine1(addressLine1Field.getText());
+        user.getHomeAddress().setLine2(addressLine2Field.getText());
+        user.getHomeAddress().setLine3(addressLine3Field.getText());
+        user.setTitle(titleField.getText());
+        user.setEmail(emailField.getText());
         SQLInterface.updateUser(user);
         ((Stage)emailField.getScene().getWindow()).close();
     }
@@ -54,12 +54,12 @@ public class EditProfileController {
 
     public void setUser(Person user) {
         this.user = user;
-        this.titleField.setText(user.title);
-        this.usernameField.setText(user.username);
-        this.nameField.setText(user.name);
-        this.emailField.setText(user.email);
-        this.addressLine1Field.setText(user.homeAddress.line1);
-        this.addressLine2Field.setText(user.homeAddress.line2);
-        this.addressLine3Field.setText(user.homeAddress.line3);
+        this.titleField.setText(user.getTitle());
+        this.usernameField.setText(user.getUsername());
+        this.nameField.setText(user.getName());
+        this.emailField.setText(user.getEmail());
+        this.addressLine1Field.setText(user.getHomeAddress().getLine1());
+        this.addressLine2Field.setText(user.getHomeAddress().getLine2());
+        this.addressLine3Field.setText(user.getHomeAddress().getLine3());
     }
 }

@@ -5,24 +5,58 @@ package model;
  * Created by Hayden on 10/1/2016.
  */
 public class Person {
-    public UserType type;
-    public String username;
-    public String name;
-    public String password;
-    public String email;
-    public HomeAddress homeAddress;
-    public String title;
+    private UserType type;
+    private String username;
+    private String name;
+    private String email;
+    private HomeAddress homeAddress;
+    private String title;
 
-    public Person() {}
+    public UserType getType() {
+        return type;
+    }
 
-//    public Person(String username, String password, UserType type)  {
-//        this.type = type;
-//        this.username = username;
-//        this.password = password;
-//
-//        this.name = "";
-//        this.email = "";
-//        this.homeAddress = new HomeAddress();
-//        this.title = "Duelmaster";
-//    }
+    public void setType(UserType type) {
+        this.type = type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public HomeAddress getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(HomeAddress homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

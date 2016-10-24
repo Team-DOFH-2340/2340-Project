@@ -214,16 +214,15 @@ public class SQLInterface {
             while (rs.next()) {
                 founduser = true;
                 activeUser = new Person();
-                activeUser.homeAddress = new HomeAddress();
-                activeUser.username = rs.getString(1);
-                activeUser.password = rs.getString(2);
-                activeUser.title = rs.getString(3);
-                activeUser.name = rs.getString(4);
-                activeUser.email = rs.getString(5);
-                activeUser.homeAddress.line1 = rs.getString(6);
-                activeUser.homeAddress.line2 = rs.getString(7);
-                activeUser.homeAddress.line3 = rs.getString(8);
-                activeUser.type = UserType.values()[rs.getInt(9)];
+                activeUser.setHomeAddress(new HomeAddress());
+                activeUser.setUsername(rs.getString(1));
+                activeUser.setTitle(rs.getString(3));
+                activeUser.setName(rs.getString(4));
+                activeUser.setEmail(rs.getString(5));
+                activeUser.getHomeAddress().setLine1(rs.getString(6));
+                activeUser.getHomeAddress().setLine2(rs.getString(7));
+                activeUser.getHomeAddress().setLine3(rs.getString(8));
+                activeUser.setType(UserType.values()[rs.getInt(9)]);
             }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -238,13 +237,13 @@ public class SQLInterface {
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
             String sql = String.format("UPDATE User SET "
-                    + "Title = '" + user.title + "', "
-                    + "Name = '" + user.name + "', "
-                    + "Email = '" + user.email + "', "
-                    + "AddressLine1 = '" + user.homeAddress.line1 + "', "
-                    + "AddressLine2 = '" + user.homeAddress.line2 + "', "
-                    + "AddressLine3 = '" + user.homeAddress.line3 + "' "
-                    + "WHERE Username = '" + user.username + "'");
+                    + "Title = '" + user.getTitle() + "', "
+                    + "Name = '" + user.getName() + "', "
+                    + "Email = '" + user.getEmail() + "', "
+                    + "AddressLine1 = '" + user.getHomeAddress().getLine1() + "', "
+                    + "AddressLine2 = '" + user.getHomeAddress().getLine2() + "', "
+                    + "AddressLine3 = '" + user.getHomeAddress().getLine3() + "' "
+                    + "WHERE Username = '" + user.getUsername() + "'");
             System.out.println(sql);
             stmt.executeUpdate(sql);
             stmt.close();

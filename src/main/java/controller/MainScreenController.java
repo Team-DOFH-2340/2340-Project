@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the main map screen of the app.
  */
-public class MainScreenController implements Initializable, MapComponentInitializedListener {
+public class MainScreenController implements Initializable, MapComponentInitializedListener, UIEventHandler {
     /**
      * reference back to mainApplication if needed
      */
@@ -55,6 +55,8 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     ArrayList<Marker> markerList;
 
+    boolean pinCreateMode;
+
     /**
      * allow for calling back to the main application code if necessary
      *
@@ -65,13 +67,13 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     }
 
     public void disableAdminScreen() {
-        if (user.type == UserType.USER || user.type == UserType.WORKER) {
+        if (user.getType() == UserType.USER || user.getType() == UserType.WORKER) {
             admin_screen.setVisible(false);
         }
     }
 
     public void logout() throws Exception {
-        System.out.println("Logging out of " + user.name);
+        System.out.println("Logging out of " + user.getName());
         ((Stage) source_report.getScene().getWindow()).close();
         mainApplication.start(new Stage());
     }
@@ -90,20 +92,20 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         stage.showAndWait();
     }
 
-    public void source_report() throws Exception {
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../sourcereport.fxml"));
-        Parent loginRoot = loader.load();
-        Scene scene = new Scene(loginRoot, 350, 350);
-        SourceReportController controller = loader.getController();
-        controller.linkMainController(this);
-        controller.setUser(user);
-        stage.setTitle("Source Report");
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
+//    public void source_report() throws Exception {
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(MainFXApplication.class.getResource("../sourcereport.fxml"));
+//        Parent loginRoot = loader.load();
+//        Scene scene = new Scene(loginRoot, 350, 350);
+//        SourceReportController controller = loader.getController();
+//        controller.linkMainController(this);
+//        controller.setUser(user);
+//        stage.setTitle("Source Report");
+//        stage.setScene(scene);
+//        stage.showAndWait();
+//    }
 
     public void admin_screen() throws Exception {
         Stage stage = new Stage();
@@ -138,6 +140,8 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         visibilityList = new ArrayList<>();
         windowList = new ArrayList<>();
         markerList = new ArrayList<>();
+
+        map.addUIEventHandler(UIEventType.click, this);
 
         this.createMapPins();
     }
@@ -183,5 +187,39 @@ public class MainScreenController implements Initializable, MapComponentInitiali
                 }
             });
         }
+    }
+
+    @Override
+    public void handle(JSObject jsObject) {
+        if (pinCreateMode) {
+            LatLong ll = new LatLong((JSObject) jsObject.getMember("latLng"));
+            double latitude = ll.getLatitude();
+            double longitude = ll.getLongitude();
+            try {
+                source_report(latitude, longitude);
+            } catch (Exception e) {
+                // TODO: Error protection
+            }
+        }
+    }
+
+    public void source_report(double lat, double lon) throws Exception {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource("../sourcereport.fxml"));
+        Parent loginRoot = loader.load();
+        Scene scene = new Scene(loginRoot, 350, 350);
+        SourceReportController controller = loader.getController();
+        controller.linkMainController(this);
+        controller.setUser(user);
+        controller.setLatLon(lat, lon);
+        stage.setTitle("Source Report");
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public void pin_create_mode() {
+        pinCreateMode = !pinCreateMode;
     }
 }

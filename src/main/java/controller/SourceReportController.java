@@ -50,8 +50,11 @@ public class SourceReportController {
             timeHourField.getItems().add(i);
         }
         timeHourField.setValue(12);
-        latitudeField.setText("33.762909");
-        longitudeField.setText("-84.422675");
+//        latitudeField.setText("33.762909");
+//        longitudeField.setText("-84.422675");
+
+        latitudeField.setEditable(false);
+        longitudeField.setEditable(false);
 
         timeMinuteField.getItems().add("00");
         timeMinuteField.getItems().add("15");
@@ -64,9 +67,14 @@ public class SourceReportController {
         this.user = user;
     }
 
+    public void setLatLon(double lat, double lon) {
+        latitudeField.setText(Double.toString(lat));
+        longitudeField.setText(Double.toString(lon));
+    }
+
     public void submit() {
         WaterSourceReport newReport = new WaterSourceReport();
-        newReport.setName(user.name);
+        newReport.setName(user.getName());
         newReport.setDate(dateField.getValue());
         newReport.setHour(timeHourField.getValue());
         String minute = timeMinuteField.getValue();

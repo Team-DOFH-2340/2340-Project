@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Person;
 import model.UserType;
@@ -52,6 +53,7 @@ public class LoginController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader();
+            stage.initModality(Modality.APPLICATION_MODAL);
             loader.setLocation(MainFXApplication.class.getResource("../register.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root, 400, 300);
