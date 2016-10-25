@@ -3,16 +3,16 @@ package model;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import static model.Privilege.*;
 
 /**
  * Enum used to choose account type.
  */
 public enum UserType {
-    USER("User", new Privilege[]{Privilege.VIEW_SOURCES, Privilege.SUBMIT_WATER_AVAILABILITY}, null),
-    WORKER("Worker", new Privilege[]{Privilege.SUBMIT_WATER_PURITY}, USER.privileges),
-    MANAGER("Manager", new Privilege[]{Privilege.VIEW_TRENDS, Privilege.DELETE_REPORTS}, WORKER.privileges),
-    ADMIN("Admin", new Privilege[]{Privilege.BAN_USER, Privilege.DELETE_USER, Privilege.UNBLOCK_USER, Privilege.VIEW_LOG},
-            MANAGER.privileges);
+    USER("User", new Privilege[]{VIEW_SOURCES, SUBMIT_WATER_AVAILABILITY}, null),
+    WORKER("Worker", new Privilege[]{SUBMIT_WATER_PURITY}, USER.privileges),
+    MANAGER("Manager", new Privilege[]{VIEW_TRENDS, DELETE_REPORTS}, WORKER.privileges),
+    ADMIN("Admin", new Privilege[]{BAN_USER, DELETE_USER, UNBLOCK_USER, VIEW_LOG, VIEW_ADMIN_SCREEN}, MANAGER.privileges);
 
     private String name;
     private List<Privilege> privileges;

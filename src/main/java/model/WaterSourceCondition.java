@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by willi on 10/7/2016.
+ * Enum for the qualities that a water source can have.
  */
 public enum WaterSourceCondition {
     WASTE("Waste"),

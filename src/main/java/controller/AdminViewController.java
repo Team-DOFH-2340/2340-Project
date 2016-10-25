@@ -11,7 +11,7 @@ import model.WaterSourceReport;
 import java.util.ArrayList;
 
 /**
- * Created by willi on 10/13/2016.
+ * Controller for the Admin view.
  */
 public class AdminViewController {
 
@@ -36,6 +36,7 @@ public class AdminViewController {
     @FXML
     private TableColumn<WaterSourceReport, Integer> conditionField;
 
+    /** Loads data from database into the admin view table. */
     public void loadData() {
         ArrayList<WaterSourceReport> reports = SQLInterface.getAllReportsInSystem();
 

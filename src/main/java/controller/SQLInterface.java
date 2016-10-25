@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
+/** Gatekeeper to the database. */
 public class SQLInterface {
-
-    private static int counter = 0;
     private static Person activeUser;
 
+    /** Initializes a connection with the database. */
     public static void init() {
         Connection c = null;
         try {
@@ -25,8 +25,7 @@ public class SQLInterface {
         System.out.println("Opened database successfully");
     }
 
-    // checks to see all tables exist
-    // in the database - if not, create them
+    /** Checks to see all tables exist in the database. If not, create them */
     public static void checkDatabase() {
         Connection c = null;
         boolean createLogin = true;
@@ -108,11 +107,15 @@ public class SQLInterface {
         System.out.println("Table created successfully");
     }
 
-    // checks to see if the username is unique
-    // if so, create a new entry in user table
-    // more specifications and such can be added later
-    // returns true on success; false on failure
+    /** Checks to see if the username is unique. If so, create a new entry in user table
+     * @param username username of the user
+     * @param password password for the user
+     * @param name Name of the user
+     * @param usertype type of user to create
+     * @return true on successful user creation; false on failure
+     */
     public static boolean createLogin(String username, String password, String name, int usertype) {
+        // TODO Refactor to take a Person object?
         if (duplicateUN(username)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ERROR");
@@ -138,6 +141,10 @@ public class SQLInterface {
         return true;
     }
 
+    /** Puts a source report in the database.
+     * @param report the report to put in the database.
+     * @return If the report was successfully put into the database.
+     */
     public static boolean createWaterSourceReport(WaterSourceReport report) {
         boolean success = false;
         try {
@@ -157,6 +164,9 @@ public class SQLInterface {
         return success;
     }
 
+    /**
+     * @return All of the waterSourceReports in the database.
+     */
     public static ArrayList<WaterSourceReport> getAllReportsInSystem() {
         ArrayList<WaterSourceReport> collection = new ArrayList<WaterSourceReport>();
         try {
@@ -184,7 +194,10 @@ public class SQLInterface {
         return collection;
     }
 
-    //  see above method, checks for duplicate username
+    /**
+     * @param username to check
+     * @return if username was already found in database
+     */
     private static boolean duplicateUN(String username) {
         boolean dup = false;
         try {
@@ -202,6 +215,11 @@ public class SQLInterface {
         return dup;
     }
 
+    /**
+     * @param username to check
+     * @param password to check
+     * @return if username was found and password matches record for that username
+     */
     public static boolean authenticate(String username, String password) {
         boolean founduser = false;
         try {
@@ -231,6 +249,9 @@ public class SQLInterface {
         return founduser;
     }
 
+    /**
+     * @param user The user to update in the database.
+     */
     public static void updateUser(Person user) {
         try {
             Class.forName("org.sqlite.JDBC");

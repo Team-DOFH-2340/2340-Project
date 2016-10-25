@@ -12,7 +12,7 @@ import model.Person;
 import model.UserType;
 
 /**
- * Created by Hayden on 10/1/2016.
+ * Controller for the Edit Profile view. Can display a user and update their info in the database.
  */
 public class EditProfileController {
      private MainFXApplication mainApplication;
@@ -35,6 +35,9 @@ public class EditProfileController {
     @FXML
     private TextField addressLine3Field;
 
+    /**
+     * Save the user info in the view to the database.
+     */
     @FXML
     private void save() {
         user.setName(nameField.getText());
@@ -47,11 +50,15 @@ public class EditProfileController {
         ((Stage)emailField.getScene().getWindow()).close();
     }
 
+    /** Close the edit profile view without saving. */
     @FXML
     private void cancel() {
         ((Stage)emailField.getScene().getWindow()).close();
     }
 
+    /** Called to set up the view.
+     * @param user Person whose info we'll display
+     */
     public void setUser(Person user) {
         this.user = user;
         this.titleField.setText(user.getTitle());

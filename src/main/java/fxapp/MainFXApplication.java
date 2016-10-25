@@ -16,9 +16,16 @@ import model.Person;
 
 import java.io.IOException;
 
+/**
+ * Main starting point for the application.
+ */
 public class MainFXApplication extends Application {
     public Person currentUser;
 
+    /**
+     * @param stage Stage to start the app inside
+     * @throws Exception if any errors.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         SQLInterface.init();
@@ -31,6 +38,10 @@ public class MainFXApplication extends Application {
         initRootLayout(stage);
     }
 
+    /**
+     * @return if login was successful
+     * @throws IOException If can't find view template.
+     */
     private boolean showLogin() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
@@ -73,8 +84,10 @@ public class MainFXApplication extends Application {
         mainScreen.show();
     }
 
+    /** This method is here so that you get a more helpful stacktrace if the app fails to construct.
+     * @param args Runtime args. Unused.
+     */
     public static void main(String... args) {
-        // This method is here so that you get a more helpful stacktrace if the app fails to construct.
         launch(args);
     }
 }

@@ -27,6 +27,7 @@ public class RegistrationController {
         hasRegistered = false;
     }
 
+    /** Called when the user clicks register. If successful, closes window. */
     public void register() {
         boolean invalidLogin = false;
         if (usernameField.getText().equals("")) {

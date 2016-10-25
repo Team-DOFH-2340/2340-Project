@@ -6,17 +6,17 @@ import com.lynden.gmapsfx.javascript.event.UIEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import fxapp.MainFXApplication;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Person;
-import model.UserType;
+import model.Privilege;
 import model.WaterSourceReport;
 import netscape.javascript.JSObject;
 
@@ -39,9 +39,11 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     @FXML
     private Button logout;
     @FXML
-    private Button source_report;
+    private Button sourceReport;
     @FXML
-    private Button admin_screen;
+    private Button adminScreen;
+    @FXML
+    private ToggleButton pinCreateModeButton;
     @FXML
     private GoogleMapView mapView;
 
@@ -59,25 +61,27 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     /**
      * allow for calling back to the main application code if necessary
-     *
      * @param main the reference to the FX Application instance
      */
     public void setMainApp(MainFXApplication main) {
         mainApplication = main;
     }
 
+    /** Checks if user should have access to admin screen, hides button to launch it if not */
     public void disableAdminScreen() {
-        if (user.getType() == UserType.USER || user.getType() == UserType.WORKER) {
-            admin_screen.setVisible(false);
+        if (!user.getType().hasPrivilege(Privilege.VIEW_ADMIN_SCREEN)) {
+            adminScreen.setVisible(false);
         }
     }
 
+    /** Closes the map, restarts the application. */
     public void logout() throws Exception {
         System.out.println("Logging out of " + user.getName());
-        ((Stage) source_report.getScene().getWindow()).close();
+        ((Stage) mapView.getScene().getWindow()).close();
         mainApplication.start(new Stage());
     }
 
+    /** Launches the profile edit view for the current user. */
     public void editProfile() throws IOException {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -92,22 +96,8 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         stage.showAndWait();
     }
 
-//    public void source_report() throws Exception {
-//        Stage stage = new Stage();
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(MainFXApplication.class.getResource("../sourcereport.fxml"));
-//        Parent loginRoot = loader.load();
-//        Scene scene = new Scene(loginRoot, 350, 350);
-//        SourceReportController controller = loader.getController();
-//        controller.linkMainController(this);
-//        controller.setUser(user);
-//        stage.setTitle("Source Report");
-//        stage.setScene(scene);
-//        stage.showAndWait();
-//    }
-
-    public void admin_screen() throws Exception {
+    /** Launches the admin view. */
+    public void adminScreen() throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainFXApplication.class.getResource("../adminviewcontroller.fxml"));
@@ -121,10 +111,10 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     }
 
 
+    /** Called once the map is initialized. Sets up the map. */
     @Override
     public void mapInitialized() {
         MapOptions mapOptions = new MapOptions();
-
         mapOptions.center(new LatLong(33.762909, -84.422675))
                 .mapType(MapTypeIdEnum.TERRAIN)
                 .overviewMapControl(false)
@@ -142,10 +132,10 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         markerList = new ArrayList<>();
 
         map.addUIEventHandler(UIEventType.click, this);
-
         this.createMapPins();
     }
 
+    /** Called as the Controller is starting. */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mapView.addMapInializedListener(this);
@@ -159,6 +149,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         this.createMapPins();
     }
 
+    /** Loads all of the reports from the database and puts pins for them on the map. */
     private void createMapPins() {
         ArrayList<WaterSourceReport> reports = SQLInterface.getAllReportsInSystem();
 
@@ -189,6 +180,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         }
     }
 
+    /** Handles clicks on the map. */
     @Override
     public void handle(JSObject jsObject) {
         if (pinCreateMode) {
@@ -196,14 +188,15 @@ public class MainScreenController implements Initializable, MapComponentInitiali
             double latitude = ll.getLatitude();
             double longitude = ll.getLongitude();
             try {
-                source_report(latitude, longitude);
+                sourceReport(latitude, longitude);
             } catch (Exception e) {
                 // TODO: Error protection
             }
         }
     }
 
-    public void source_report(double lat, double lon) throws Exception {
+    /** Launches the window for creating a new Source Report */
+    public void sourceReport(double lat, double lon) throws Exception {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
@@ -219,7 +212,8 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         stage.showAndWait();
     }
 
-    public void pin_create_mode() {
+    @FXML
+    public void pinCreateModeToggle() {
         pinCreateMode = !pinCreateMode;
     }
 }

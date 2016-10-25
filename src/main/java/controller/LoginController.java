@@ -23,20 +23,21 @@ public class LoginController {
 
     /**
      * allow for calling back to the main application code if necessary
-     *
      * @param main the reference to the FX Application instance
      */
     public void setMainApp(MainFXApplication main) {
         mainApplication = main;
     }
 
+    /**
+     * Checks the database to see if login credentials given in view are good.
+     */
     public void login() {
         System.out.println(usernameField.getText());
         System.out.println(passwordField.getText());
         if (SQLInterface.authenticate(usernameField.getText(), passwordField.getText())) {
             System.out.println("login successful");
             this.loggedIn = true;
-            // mainApplication.currentUser = SQLInterface.getUser() GET USER FROM DATABASE, PLACEHOLDER VV
             mainApplication.currentUser = SQLInterface.getUser();
             ((Stage) passwordField.getScene().getWindow()).close();
         } else {
@@ -44,11 +45,15 @@ public class LoginController {
         }
     }
 
+    /** Opens the register screen and stores whether or not the user registered successfully. */
     public void register() {
         this.loggedIn = false;
         boolean registered = showRegistration();
     }
 
+    /**
+     * @return True if user succesfully created a new account, false otherwise
+     */
     private boolean showRegistration() {
         Stage stage = new Stage();
         try {

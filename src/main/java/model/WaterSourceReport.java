@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 
 /**
- * Created by willi on 10/7/2016.
+ * Data holder for everything in a source report.
  */
 public class WaterSourceReport {
     private int report_id;
@@ -72,6 +72,9 @@ public class WaterSourceReport {
         this.type = type;
     }
 
+    /**
+     * @return HTML encoding to be used in map view.
+     */
     public String toInfoWindow() {
         return "<h3>" + date.toString() + " " + hour + ":" + minute + "</h3>" + condition + "<br/>" + type;
     }

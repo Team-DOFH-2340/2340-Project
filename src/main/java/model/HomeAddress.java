@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by Hayden on 10/1/2016.
+ * Simple data holder for an address.
  */
 public class HomeAddress {
     private String line1;

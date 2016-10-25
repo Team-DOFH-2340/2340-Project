@@ -11,7 +11,7 @@ import model.WaterSourceType;
 import java.time.LocalDate;
 
 /**
- * Created by willi on 10/6/2016.
+ * Controller for SourceReport creation view.
  */
 public class SourceReportController {
     @FXML
@@ -56,10 +56,7 @@ public class SourceReportController {
         latitudeField.setEditable(false);
         longitudeField.setEditable(false);
 
-        timeMinuteField.getItems().add("00");
-        timeMinuteField.getItems().add("15");
-        timeMinuteField.getItems().add("30");
-        timeMinuteField.getItems().add("45");
+        timeMinuteField.getItems().addAll("00", "15", "30", "45");
         timeMinuteField.setValue("00");
     }
 
@@ -72,35 +69,31 @@ public class SourceReportController {
         longitudeField.setText(Double.toString(lon));
     }
 
+    /** Creates a new WaterSourceReport and populates its data from the view. */
     public void submit() {
         WaterSourceReport newReport = new WaterSourceReport();
         newReport.setName(user.getName());
         newReport.setDate(dateField.getValue());
         newReport.setHour(timeHourField.getValue());
         String minute = timeMinuteField.getValue();
-        if (minute.equals("00")) {
-            newReport.setMinute(0);
-        } else if (minute.equals("15")) {
-            newReport.setMinute(15);
-        } else if (minute.equals("30")) {
-            newReport.setMinute(30);
-        } else {
-            newReport.setMinute(45);
-        }
+        newReport.setMinute(Integer.parseInt(minute));
         newReport.setLatitude(Double.parseDouble(latitudeField.getText()));
         newReport.setLongitude(Double.parseDouble(longitudeField.getText()));
         newReport.setType(typeField.getValue());
         newReport.setCondition(conditionField.getValue());
         SQLInterface.createWaterSourceReport(newReport);
         System.out.println("Report entered successfully");
+        // Refresh unconditionally from controller upon return instead of this?
         mainscreencontroller.refreshMapPins();
         ((Stage)submitBtn.getScene().getWindow()).close();
     }
 
+    /** Called to give a reference to the main controller. */
     public void linkMainController(MainScreenController controller) {
         mainscreencontroller = controller;
     }
 
+    /** Closes the window. */
     public void cancel() {
         ((Stage)submitBtn.getScene().getWindow()).close();
     }

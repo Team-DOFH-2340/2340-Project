@@ -2,7 +2,6 @@ package model;
 
 /**
  * Class that defines a user.
- * Created by Hayden on 10/1/2016.
  */
 public class Person {
     private UserType type;

@@ -1,8 +1,8 @@
 package model;
 
 /**
- * Created by willi on 10/7/2016.
- */
+ * Enum for all of the possible types of water source.
+ * */
 public enum WaterSourceType {
     BOTTLED("Bottled"),
     WELL("Well"),

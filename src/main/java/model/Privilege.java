@@ -2,9 +2,9 @@ package model;
 
 /**
  * Defines the abilities that a user of the application can have.
- * Created by Hayden on 10/1/2016.
  */
 public enum Privilege {
+    VIEW_ADMIN_SCREEN("View admin screen"),
     BAN_USER("Ban users"),
     DELETE_USER("Delete users"),
     UNBLOCK_USER("Unblock users"),

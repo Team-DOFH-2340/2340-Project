@@ -18,11 +18,11 @@
     <Button text="Log Out" fx:id="logout"
             onMouseClicked="#logout"
             GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-    <Button text="Admin Screen" fx:id="admin_screen"
-            onMouseClicked="#admin_screen"
+    <Button text="Admin Screen" fx:id="adminScreen"
+            onMouseClicked="#adminScreen"
             GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-    <ToggleButton text="Pin Creation" fx:id="pin_create_mode"
-                  onMouseClicked="#pin_create_mode"
+    <ToggleButton text="Pin Creation" fx:id="pinCreateModeButton"
+                  onMouseClicked="#pinCreateModeToggle"
                   GridPane.columnIndex="3" GridPane.rowIndex="0"/>
     <GoogleMapView fx:id="mapView" GridPane.rowIndex="2" GridPane.columnSpan="4"/>
 </GridPane>
