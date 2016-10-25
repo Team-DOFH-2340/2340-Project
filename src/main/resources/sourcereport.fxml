@@ -30,6 +30,8 @@
 
     <ChoiceBox fx:id="timeMinuteField"
                GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+    <ChoiceBox fx:id="amPmField"
+               GridPane.columnIndex="4" GridPane.rowIndex="2"/>
 
     <Label text="Latitude:"
            GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="right"/>

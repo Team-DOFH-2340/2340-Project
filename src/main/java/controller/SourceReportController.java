@@ -25,6 +25,8 @@ public class SourceReportController {
     @FXML
     private ChoiceBox<String> timeMinuteField;
     @FXML
+    private ChoiceBox<String> amPmField;
+    @FXML
     private ChoiceBox<Integer> timeHourField;
     @FXML
     private TextField latitudeField;
@@ -46,7 +48,7 @@ public class SourceReportController {
     }
 
     private void configTimeFields() {
-        for (int i = 1; i <= 24; ++i) {
+        for (int i = 1; i <= 12; ++i) {
             timeHourField.getItems().add(i);
         }
         timeHourField.setValue(12);
@@ -58,6 +60,8 @@ public class SourceReportController {
 
         timeMinuteField.getItems().addAll("00", "15", "30", "45");
         timeMinuteField.setValue("00");
+        amPmField.getItems().addAll("AM", "PM");
+        amPmField.setValue("AM");
     }
 
     public void setUser(Person user) {
@@ -74,7 +78,8 @@ public class SourceReportController {
         WaterSourceReport newReport = new WaterSourceReport();
         newReport.setName(user.getName());
         newReport.setDate(dateField.getValue());
-        newReport.setHour(timeHourField.getValue());
+        int amPm = amPmField.getValue().equals("AM") ? 0 : 12;
+        newReport.setHour(timeHourField.getValue() + amPm);
         String minute = timeMinuteField.getValue();
         newReport.setMinute(Integer.parseInt(minute));
         newReport.setLatitude(Double.parseDouble(latitudeField.getText()));
