@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 /** Gatekeeper to the database. */
 public class SQLInterface {
-    private static Person activeUser;
-
     /** Initializes a connection with the database. */
     public static void init() {
         Connection c = null;
@@ -218,10 +216,10 @@ public class SQLInterface {
     /**
      * @param username to check
      * @param password to check
-     * @return if username was found and password matches record for that username
+     * @return Person class holding all credentials about that user, null if not found
      */
-    public static boolean authenticate(String username, String password) {
-        boolean founduser = false;
+    public static Person authenticate(String username, String password) {
+        Person activeUser = null;
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -230,7 +228,6 @@ public class SQLInterface {
                     username, password);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                founduser = true;
                 activeUser = new Person();
                 activeUser.setHomeAddress(new HomeAddress());
                 activeUser.setUsername(rs.getString(1));
@@ -246,7 +243,7 @@ public class SQLInterface {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        return founduser;
+        return activeUser;
     }
 
     /**
@@ -273,9 +270,5 @@ public class SQLInterface {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-    }
-
-    public static Person getUser() {
-        return activeUser;
     }
 }

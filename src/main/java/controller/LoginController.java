@@ -35,10 +35,10 @@ public class LoginController {
     public void login() {
         System.out.println(usernameField.getText());
         System.out.println(passwordField.getText());
-        if (SQLInterface.authenticate(usernameField.getText(), passwordField.getText())) {
+        mainApplication.currentUser = SQLInterface.authenticate(usernameField.getText(), passwordField.getText());
+        if (mainApplication.currentUser != null) {
             System.out.println("login successful");
             this.loggedIn = true;
-            mainApplication.currentUser = SQLInterface.getUser();
             ((Stage) passwordField.getScene().getWindow()).close();
         } else {
             System.out.println("login failure");
