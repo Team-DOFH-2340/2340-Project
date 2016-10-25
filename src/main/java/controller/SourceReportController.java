@@ -79,7 +79,8 @@ public class SourceReportController {
         newReport.setName(user.getName());
         newReport.setDate(dateField.getValue());
         int amPm = amPmField.getValue().equals("AM") ? 0 : 12;
-        newReport.setHour(timeHourField.getValue() + amPm);
+        int hour = timeHourField.getValue() == 12 ? 0 : timeHourField.getValue();
+        newReport.setHour(hour + amPm);
         String minute = timeMinuteField.getValue();
         newReport.setMinute(Integer.parseInt(minute));
         newReport.setLatitude(Double.parseDouble(latitudeField.getText()));
