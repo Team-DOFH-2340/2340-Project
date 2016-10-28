@@ -150,7 +150,7 @@ public class SQLInterface {
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
             String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%s', '%s')",
-                report.getName(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
+                report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
@@ -175,7 +175,7 @@ public class SQLInterface {
             while (rs.next()) {
                 WaterSourceReport temp = new WaterSourceReport();
                 temp.setReport_id(rs.getInt(1));
-                temp.setName(rs.getString(2));
+                temp.setReportedBy(rs.getString(2));
                 temp.setDate(LocalDate.parse(rs.getString(3)));
                 temp.setHour(rs.getInt(4));
                 temp.setMinute(rs.getInt(5));

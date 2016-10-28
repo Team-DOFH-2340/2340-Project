@@ -76,7 +76,7 @@ public class SourceReportController {
     /** Creates a new WaterSourceReport and populates its data from the view. */
     public void submit() {
         WaterSourceReport newReport = new WaterSourceReport();
-        newReport.setName(user.getName());
+        newReport.setReportedBy(user.getName());
         newReport.setDate(dateField.getValue());
         int amPm = amPmField.getValue().equals("AM") ? 0 : 12;
         int hour = timeHourField.getValue() == 12 ? 0 : timeHourField.getValue();
