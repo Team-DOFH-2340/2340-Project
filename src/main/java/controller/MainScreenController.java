@@ -17,13 +17,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Person;
 import model.Privilege;
+import model.Report;
 import model.WaterSourceReport;
 import netscape.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Controller for the main map screen of the app.
@@ -51,11 +51,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     public Person user;
 
-    ArrayList<Boolean> visibilityList;
-
-    ArrayList<InfoWindow> windowList;
-
-    ArrayList<Marker> markerList;
+    Set<Marker> markers;
 
     boolean pinCreateMode;
 
@@ -127,9 +123,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
         map = mapView.createMap(mapOptions);
 
-        visibilityList = new ArrayList<>();
-        windowList = new ArrayList<>();
-        markerList = new ArrayList<>();
+        this.markers = new HashSet<>();
 
         map.addUIEventHandler(UIEventType.click, this);
         this.createMapPins();
@@ -142,39 +136,26 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     }
 
     public void refreshMapPins() {
-        visibilityList.clear();
-        windowList.clear();
-        markerList.clear();
-
+        for (Marker marker: markers) {
+            map.removeMarker(marker);
+        }
+        markers.clear();
         this.createMapPins();
     }
 
     /** Loads all of the reports from the database and puts pins for them on the map. */
     private void createMapPins() {
-        ArrayList<WaterSourceReport> reports = SQLInterface.getAllReportsInSystem();
-
-        for (int a = 0; a < reports.size(); ++a) {
-            final int b = a;
-            LatLong tLL = new LatLong(reports.get(a).getLatitude(), reports.get(a).getLongitude());
-            MarkerOptions tMO = new MarkerOptions();
-            tMO.position(tLL);
-            Marker tMarker = new Marker(tMO);
-            InfoWindowOptions tIWO = new InfoWindowOptions();
-            tIWO.content(reports.get(a).toInfoWindow());
-            InfoWindow tIW= new InfoWindow(tIWO);
-            visibilityList.add(Boolean.FALSE);
-            windowList.add(tIW);
-            markerList.add(tMarker);
+        Collection<WaterSourceReport> reports = SQLInterface.getAllSourceReportsInSystem();
+        for (Report report: reports) {
+            Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
+                                        report.getLatitude(), report.getLongitude())), map, report);
+            tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
             map.addMarker(tMarker);
+            markers.add(tMarker);
             map.addUIEventHandler(tMarker, UIEventType.click, new UIEventHandler() {
                 @Override
                 public void handle(JSObject jsObject) {
-                    if (visibilityList.get(b) == Boolean.FALSE) {
-                        windowList.get(b).open(map, markerList.get(b));
-                    } else {
-                        windowList.get(b).close();
-                    }
-                    visibilityList.set(b, !visibilityList.get(b));
+                    tMarker.toggleWindowVisibility();
                 }
             });
         }

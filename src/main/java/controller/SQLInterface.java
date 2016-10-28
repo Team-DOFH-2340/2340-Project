@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /** Gatekeeper to the database. */
 public class SQLInterface {
@@ -165,8 +166,8 @@ public class SQLInterface {
     /**
      * @return All of the waterSourceReports in the database.
      */
-    public static ArrayList<WaterSourceReport> getAllReportsInSystem() {
-        ArrayList<WaterSourceReport> collection = new ArrayList<WaterSourceReport>();
+    public static Collection<WaterSourceReport> getAllSourceReportsInSystem() {
+        ArrayList<WaterSourceReport> collection = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");

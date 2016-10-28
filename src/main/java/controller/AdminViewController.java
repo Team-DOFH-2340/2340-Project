@@ -6,9 +6,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import model.Report;
 import model.WaterSourceReport;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Controller for the Admin view.
@@ -38,7 +40,7 @@ public class AdminViewController {
 
     /** Loads data from database into the admin view table. */
     public void loadData() {
-        ArrayList<WaterSourceReport> reports = SQLInterface.getAllReportsInSystem();
+        Collection<WaterSourceReport> reports = SQLInterface.getAllSourceReportsInSystem();
 
         idField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("report_id"));
         usernameField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("name"));
@@ -50,8 +52,8 @@ public class AdminViewController {
         typeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("type"));
         conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("condition"));
 
-        for (int i = 0; i < reports.size(); i++) {
-            tableView.getItems().add(reports.get(i));
+        for (WaterSourceReport report: reports) {
+            tableView.getItems().add(report);
         }
     }
 }
