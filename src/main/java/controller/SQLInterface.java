@@ -5,8 +5,7 @@ import model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /** Gatekeeper to the database. */
 public class SQLInterface {
@@ -228,6 +227,13 @@ public class SQLInterface {
         return success;
     }
 
+    /** @return All reports in database. */
+    public static Collection<Report> getAllReportsInSystem() {
+        Collection<Report> working = new HashSet<>();
+        working.addAll(getAllQualityReportsInSysten());
+        working.addAll(getAllSourceReportsInSystem());
+        return working;
+    }
     /**
      * @return All of the waterSourceReports in the database.
      */

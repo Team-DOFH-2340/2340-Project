@@ -29,4 +29,9 @@ public class WaterSourceReport extends Report {
     public String toInfoWindow() {
         return super.toInfoWindow() + condition + "<br/>" + type;
     }
+
+    @Override
+    public String getIconURL() {
+        return "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    }
 }

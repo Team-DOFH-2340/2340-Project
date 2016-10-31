@@ -58,4 +58,7 @@ public class Report {
         return "<h3>" + getDate().toString() + " " + getHour() + ":" + getMinute() + "</h3>";
     }
 
+    public String getIconURL() {
+        return "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    }
 }

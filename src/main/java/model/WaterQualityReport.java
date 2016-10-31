@@ -39,4 +39,9 @@ public class WaterQualityReport extends Report {
         return super.toInfoWindow() + condition + "<br/>" + virusPPM + " " + contaminantPPM;
     }
 
+    @Override
+    public String getIconURL() {
+        return "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+    }
+
 }

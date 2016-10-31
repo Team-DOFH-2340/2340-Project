@@ -157,25 +157,10 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     /** Loads all of the reports from the database and puts pins for them on the map. */
     private void createMapPins() {
-        Collection<WaterSourceReport> reports1 = SQLInterface.getAllSourceReportsInSystem();
-        for (Report report: reports1) {
+        Collection<Report> reports = SQLInterface.getAllReportsInSystem();
+        for (Report report: reports) {
             Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
-                                        report.getLatitude(), report.getLongitude())) .icon("http://maps.google.com/mapfiles/ms/icons/red-dot.png"), map, report);
-            tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
-            map.addMarker(tMarker);
-            markers.add(tMarker);
-            map.addUIEventHandler(tMarker, UIEventType.click, new UIEventHandler() {
-                @Override
-                public void handle(JSObject jsObject) {
-                    tMarker.toggleWindowVisibility();
-                }
-            });
-        }
-
-        Collection<WaterQualityReport> reports2 = SQLInterface.getAllQualityReportsInSysten();
-        for (Report report: reports2) {
-            Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
-                    report.getLatitude(), report.getLongitude())) .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png"), map, report);
+                    report.getLatitude(), report.getLongitude())).icon(report.getIconURL()), map, report);
             tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
             map.addMarker(tMarker);
             markers.add(tMarker);
