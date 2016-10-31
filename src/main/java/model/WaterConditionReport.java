@@ -3,7 +3,7 @@ package model;
 /**
  * Enum for the qualities that a water source can have.
  */
-public enum WaterSourceCondition {
+public enum WaterConditionReport {
     WASTE("Waste"),
     TREATABLE_CLEAR("Treatable-Clear"),
     TREATABLE_MUDDY("Treatable-Muddy"),
@@ -11,9 +11,10 @@ public enum WaterSourceCondition {
 
     private String name;
 
-    WaterSourceCondition(String name) {
+    WaterConditionReport(String name) {
         this.name = name;
     }
+
     @Override
     public String toString() {
         return name;

@@ -18,42 +18,42 @@ import java.util.Collection;
 public class AdminViewController {
 
     @FXML
-    private TableView<WaterSourceReport> tableView;
+    private TableView<WaterSourceReport> sourceView;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> idField;
+    private TableColumn<WaterSourceReport, Integer> s_idField;
     @FXML
-    private TableColumn<WaterSourceReport, String> usernameField;
+    private TableColumn<WaterSourceReport, String> s_usernameField;
     @FXML
-    private TableColumn<WaterSourceReport, String> dateField;
+    private TableColumn<WaterSourceReport, String> s_dateField;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> hourField;
+    private TableColumn<WaterSourceReport, Integer> s_hourField;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> minuteField;
+    private TableColumn<WaterSourceReport, Integer> s_minuteField;
     @FXML
-    private TableColumn<WaterSourceReport, Double> latitudeField;
+    private TableColumn<WaterSourceReport, Double> s_latitudeField;
     @FXML
-    private TableColumn<WaterSourceReport, Double> longitudeField;
+    private TableColumn<WaterSourceReport, Double> s_longitudeField;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> typeField;
+    private TableColumn<WaterSourceReport, Integer> s_typeField;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> conditionField;
+    private TableColumn<WaterSourceReport, Integer> s_conditionField;
 
     /** Loads data from database into the admin view table. */
     public void loadData() {
         Collection<WaterSourceReport> reports = SQLInterface.getAllSourceReportsInSystem();
 
-        idField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("report_id"));
-        usernameField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("name"));
-        dateField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("date"));
-        hourField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("hour"));
-        minuteField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("minute"));
-        latitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("latitude"));
-        longitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("longitude"));
-        typeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("type"));
-        conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("condition"));
+        s_idField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("report_id"));
+        s_usernameField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("reportedBy"));
+        s_dateField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("date"));
+        s_hourField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("hour"));
+        s_minuteField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("minute"));
+        s_latitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("latitude"));
+        s_longitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("longitude"));
+        s_typeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("type"));
+        s_conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("condition"));
 
         for (WaterSourceReport report: reports) {
-            tableView.getItems().add(report);
+            sourceView.getItems().add(report);
         }
     }
 }

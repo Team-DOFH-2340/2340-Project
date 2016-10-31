@@ -13,12 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Person;
-import model.Privilege;
-import model.Report;
-import model.WaterSourceReport;
+import model.*;
 import netscape.javascript.JSObject;
 
 import java.io.IOException;
@@ -43,7 +41,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     @FXML
     private Button adminScreen;
     @FXML
-    private ToggleButton pinCreateModeButton;
+    private Button mode_button;
     @FXML
     private GoogleMapView mapView;
 
@@ -53,7 +51,9 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     Set<Marker> markers;
 
-    boolean pinCreateMode;
+    int mode;   // 0 - normal, 1 - source, 2 - quality
+
+    int mode_mod;
 
     /**
      * allow for calling back to the main application code if necessary
@@ -63,8 +63,20 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         mainApplication = main;
     }
 
-    /** Checks if user should have access to admin screen, hides button to launch it if not */
-    public void disableAdminScreen() {
+    /** Perform some basic setup functions to prepare main screen for use such as hiding admin button for non-admins*/
+    public void setup() {
+        // setup mode button
+        mode_button.setStyle("-fx-background-color: yellow;");
+        mode_button.setText("View Mode");
+
+        // disable water quality mode for normal users
+        if (!user.getType().hasPrivilege(Privilege.SUBMIT_WATER_PURITY)) {
+            mode_mod = 2;
+        } else {
+            mode_mod = 3;
+        }
+
+        // disable admin screen if user is not an admin
         if (!user.getType().hasPrivilege(Privilege.VIEW_ADMIN_SCREEN)) {
             adminScreen.setVisible(false);
         }
@@ -148,7 +160,22 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         Collection<WaterSourceReport> reports = SQLInterface.getAllSourceReportsInSystem();
         for (Report report: reports) {
             Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
-                                        report.getLatitude(), report.getLongitude())), map, report);
+                                        report.getLatitude(), report.getLongitude())) .icon("http://maps.google.com/mapfiles/ms/icons/red-dot.png"), map, report);
+            tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
+            map.addMarker(tMarker);
+            markers.add(tMarker);
+            map.addUIEventHandler(tMarker, UIEventType.click, new UIEventHandler() {
+                @Override
+                public void handle(JSObject jsObject) {
+                    tMarker.toggleWindowVisibility();
+                }
+            });
+        }
+
+        Collection<WaterQualityReport> reports1 = SQLInterface.getAllQualityReportsInSysten();
+        for (Report report: reports1) {
+            Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
+                    report.getLatitude(), report.getLongitude())) .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png"), map, report);
             tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
             map.addMarker(tMarker);
             markers.add(tMarker);
@@ -164,7 +191,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     /** Handles clicks on the map. */
     @Override
     public void handle(JSObject jsObject) {
-        if (pinCreateMode) {
+        if (mode == 1) {
             LatLong ll = new LatLong((JSObject) jsObject.getMember("latLng"));
             double latitude = ll.getLatitude();
             double longitude = ll.getLongitude();
@@ -173,6 +200,22 @@ public class MainScreenController implements Initializable, MapComponentInitiali
             } catch (Exception e) {
                 // TODO: Error protection
             }
+            mode = 0;
+            mode_button.setStyle("-fx-background-color: yellow;");
+            mode_button.setText("View Mode");
+        } else if (mode == 2) {
+            LatLong ll = new LatLong((JSObject) jsObject.getMember("latLng"));
+            double latitude = ll.getLatitude();
+            double longitude = ll.getLongitude();
+            try {
+                qualityReport(latitude, longitude);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // TODO: Error protection
+            }
+            mode = 0;
+            mode_button.setStyle("-fx-background-color: yellow;");
+            mode_button.setText("View Mode");
         }
     }
 
@@ -193,8 +236,36 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         stage.showAndWait();
     }
 
+    /** Launches the window for creating a new Source Report */
+    public void qualityReport(double lat, double lon) throws Exception {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource("../qualityreport.fxml"));
+        Parent loginRoot = loader.load();
+        Scene scene = new Scene(loginRoot, 350, 350);
+        QualityReportController controller = loader.getController();
+        controller.linkMainController(this);
+        controller.setUser(user);
+        controller.setLatLon(lat, lon);
+        stage.setTitle("Source Report");
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
     @FXML
-    public void pinCreateModeToggle() {
-        pinCreateMode = !pinCreateMode;
+    public void mode_switch() {
+        mode = (mode + 1) % mode_mod;
+        // modeButton.setBackground(javafx.scene.paint.Color.RED);
+        if (mode == 0) {
+            mode_button.setStyle("-fx-background-color: yellow;");
+            mode_button.setText("View Mode");
+        } else if (mode == 1) {
+            mode_button.setStyle("-fx-background-color: magenta;");
+            mode_button.setText("Source Mode");
+        } else {
+            mode_button.setStyle("-fx-background-color: cyan;");
+            mode_button.setText("Quality Mode");
+        }
     }
 }
