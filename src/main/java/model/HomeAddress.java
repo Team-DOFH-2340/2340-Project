@@ -43,4 +43,9 @@ public class HomeAddress {
     public void setLine3(String line3) {
         this.line3 = line3;
     }
+
+    @Override
+    public String toString() {
+        return line1 + " " + line2 + " " + line3;
+    }
 }

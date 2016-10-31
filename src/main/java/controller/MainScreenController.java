@@ -157,8 +157,8 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     /** Loads all of the reports from the database and puts pins for them on the map. */
     private void createMapPins() {
-        Collection<WaterSourceReport> reports = SQLInterface.getAllSourceReportsInSystem();
-        for (Report report: reports) {
+        Collection<WaterSourceReport> reports1 = SQLInterface.getAllSourceReportsInSystem();
+        for (Report report: reports1) {
             Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
                                         report.getLatitude(), report.getLongitude())) .icon("http://maps.google.com/mapfiles/ms/icons/red-dot.png"), map, report);
             tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
@@ -172,8 +172,8 @@ public class MainScreenController implements Initializable, MapComponentInitiali
             });
         }
 
-        Collection<WaterQualityReport> reports1 = SQLInterface.getAllQualityReportsInSysten();
-        for (Report report: reports1) {
+        Collection<WaterQualityReport> reports2 = SQLInterface.getAllQualityReportsInSysten();
+        for (Report report: reports2) {
             Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
                     report.getLatitude(), report.getLongitude())) .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png"), map, report);
             tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));

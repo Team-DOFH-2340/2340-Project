@@ -259,7 +259,7 @@ public class SQLInterface {
     }
 
     /**
-     * @return All of the waterSourceReports in the database.
+     * @return All of the waterqualityReports in the database.
      */
     public static Collection<WaterQualityReport> getAllQualityReportsInSysten() {
         ArrayList<WaterQualityReport> collection = new ArrayList<>();
