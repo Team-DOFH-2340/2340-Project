@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Person;
-import model.WaterSourceCondition;
+import model.WaterConditionReport;
 import model.WaterSourceReport;
 import model.WaterSourceType;
 
@@ -19,7 +19,7 @@ public class SourceReportController {
     @FXML
     private ChoiceBox<WaterSourceType> typeField;
     @FXML
-    private ChoiceBox<WaterSourceCondition> conditionField;
+    private ChoiceBox<WaterConditionReport> conditionField;
     @FXML
     private DatePicker dateField;
     @FXML
@@ -42,8 +42,8 @@ public class SourceReportController {
         typeField.getItems().setAll(WaterSourceType.values());
         typeField.setValue(WaterSourceType.BOTTLED);
         this.configTimeFields();
-        conditionField.getItems().setAll(WaterSourceCondition.values());
-        conditionField.setValue(WaterSourceCondition.POTABLE);
+        conditionField.getItems().setAll(WaterConditionReport.values());
+        conditionField.setValue(WaterConditionReport.POTABLE);
         this.dateField.setValue(LocalDate.now());
     }
 
@@ -52,8 +52,6 @@ public class SourceReportController {
             timeHourField.getItems().add(i);
         }
         timeHourField.setValue(12);
-//        latitudeField.setText("33.762909");
-//        longitudeField.setText("-84.422675");
 
         latitudeField.setEditable(false);
         longitudeField.setEditable(false);

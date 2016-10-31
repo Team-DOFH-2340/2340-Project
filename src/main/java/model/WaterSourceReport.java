@@ -1,19 +1,17 @@
 package model;
 
-import java.time.LocalDate;
-
 /**
  * Data holder for everything in a source report.
  */
 public class WaterSourceReport extends Report {
-    private WaterSourceCondition condition;
+    private WaterConditionReport condition;
     private WaterSourceType type;
 
-    public WaterSourceCondition getCondition() {
+    public WaterConditionReport getCondition() {
         return condition;
     }
 
-    public void setCondition(WaterSourceCondition condition) {
+    public void setCondition(WaterConditionReport condition) {
         this.condition = condition;
     }
 

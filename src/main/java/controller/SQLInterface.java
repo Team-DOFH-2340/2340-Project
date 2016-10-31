@@ -5,13 +5,14 @@ import model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /** Gatekeeper to the database. */
 public class SQLInterface {
-    /** Initializes a connection with the database. */
+    /**
+     * Initializes a connection with the database.
+     */
     public static void init() {
         Connection c = null;
         try {
@@ -24,11 +25,14 @@ public class SQLInterface {
         System.out.println("Opened database successfully");
     }
 
-    /** Checks to see all tables exist in the database. If not, create them */
+    /**
+     * Checks to see all tables exist in the database. If not, create them
+     */
     public static void checkDatabase() {
         Connection c = null;
         boolean createLogin = true;
         boolean createWaterSource = true;
+        boolean createWaterQuality = true;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -39,6 +43,8 @@ public class SQLInterface {
                     createLogin = false;
                 } else if (rs.getString(3).equals("WaterSource")) {
                     createWaterSource = false;
+                } else if (rs.getString(3).equals("WaterQuality")) {
+                    createWaterQuality = false;
                 }
             }
             c.close();
@@ -51,6 +57,9 @@ public class SQLInterface {
         }
         if (createWaterSource) {
             createWaterSourceTable();
+        }
+        if (createWaterQuality) {
+            createWaterQualityTable();
         }
     }
 
@@ -106,10 +115,39 @@ public class SQLInterface {
         System.out.println("Table created successfully");
     }
 
-    /** Checks to see if the username is unique. If so, create a new entry in user table
+    public static void createWaterQualityTable() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = "CREATE TABLE WaterQuality("
+                    + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "User VARCHAR(32),"
+                    + "Date CHARACTER(10),"
+                    + "Hour INTEGER,"
+                    + "Minute INTEGER,"
+                    + "Latitude NUMERIC,"
+                    + "Longitude NUMERIC,"
+                    + "VirusPPM NUMERIC,"
+                    + "ContaminantPPM NUMERIC,"
+                    + "Condition INTEGER"
+                    + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Table created successfully");
+    }
+
+    /**
+     * Checks to see if the username is unique. If so, create a new entry in user table
+     *
      * @param username username of the user
      * @param password password for the user
-     * @param name Name of the user
+     * @param name     Name of the user
      * @param usertype type of user to create
      * @return true on successful user creation; false on failure
      */
@@ -140,7 +178,9 @@ public class SQLInterface {
         return true;
     }
 
-    /** Puts a source report in the database.
+    /**
+     * Puts a source report in the database.
+     *
      * @param report the report to put in the database.
      * @return If the report was successfully put into the database.
      */
@@ -151,7 +191,32 @@ public class SQLInterface {
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
             String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%s', '%s')",
-                report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
+                    report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+            success = true;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return success;
+    }
+
+    /**
+     * Puts a source report in the database.
+     *
+     * @param report the report to put in the database.
+     * @return If the report was successfully put into the database.
+     */
+    public static boolean createWaterQualityReport(WaterQualityReport report) {
+        boolean success = false;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = String.format("INSERT INTO WaterQuality(User, Date, Hour, Minute, Latitude, Longitude, VirusPPM, ContaminantPPM, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%f', '%f', '%s')",
+                    report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getVirusPPM(), report.getContaminantPPM(), report.getCondition());
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
@@ -183,7 +248,68 @@ public class SQLInterface {
                 temp.setLatitude(rs.getDouble(6));
                 temp.setLongitude(rs.getDouble(7));
                 temp.setType(WaterSourceType.values()[rs.getInt(8)]);
-                temp.setCondition(WaterSourceCondition.values()[rs.getInt(9)]);
+                temp.setCondition(WaterConditionReport.values()[rs.getInt(9)]);
+                collection.add(temp);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return collection;
+    }
+
+    /**
+     * @return All of the waterSourceReports in the database.
+     */
+    public static Collection<WaterQualityReport> getAllQualityReportsInSysten() {
+        ArrayList<WaterQualityReport> collection = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WaterQuality");
+            while (rs.next()) {
+                WaterQualityReport temp = new WaterQualityReport();
+                temp.setReport_id(rs.getInt(1));
+                temp.setReportedBy(rs.getString(2));
+                temp.setDate(LocalDate.parse(rs.getString(3)));
+                temp.setHour(rs.getInt(4));
+                temp.setMinute(rs.getInt(5));
+                temp.setLatitude(rs.getDouble(6));
+                temp.setLongitude(rs.getDouble(7));
+                temp.setVirusPPM(rs.getDouble(8));
+                temp.setContaminantPPM(rs.getDouble(9));
+                temp.setCondition(Condition.values()[rs.getInt(10)]);
+                collection.add(temp);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return collection;
+    }
+
+    /**
+     * @return All of the users in the database.
+     */
+    public static Collection<Person> getAllUsersInSystem() {
+        ArrayList<Person> collection = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM User");
+            while (rs.next()) {
+                Person temp = new Person();
+                temp.setUsername(rs.getString(1));
+                temp.setTitle(rs.getString(3));
+                temp.setName(rs.getString(4));
+                temp.setEmail(rs.getString(5));
+                temp.setHomeAddress(new HomeAddress());
+                temp.getHomeAddress().setLine1(rs.getString(6));
+                temp.getHomeAddress().setLine2(rs.getString(7));
+                temp.getHomeAddress().setLine3(rs.getString(8));
+                temp.setType(UserType.values()[rs.getInt(9)]);
                 collection.add(temp);
             }
         } catch (Exception e) {

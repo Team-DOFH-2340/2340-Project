@@ -3,16 +3,10 @@ package model;
 /**
  * Created by hayde on 10/27/2016.
  */
-public class WaterPurityReport extends Report {
+public class WaterQualityReport extends Report {
     private Condition condition;
     private double virusPPM;
     private double contaminantPPM;
-
-    public WaterPurityReport(Condition condition, double virusPPM, double contaminantPPM) {
-        this.condition = condition;
-        this.virusPPM = virusPPM;
-        this.contaminantPPM = contaminantPPM;
-    }
 
     public Condition getCondition() {
         return condition;
