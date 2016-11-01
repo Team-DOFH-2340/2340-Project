@@ -4,14 +4,14 @@ package model;
  * Data holder for everything in a source report.
  */
 public class WaterSourceReport extends Report {
-    private WaterConditionReport condition;
+    private WaterSourceCondition condition;
     private WaterSourceType type;
 
-    public WaterConditionReport getCondition() {
+    public WaterSourceCondition getCondition() {
         return condition;
     }
 
-    public void setCondition(WaterConditionReport condition) {
+    public void setCondition(WaterSourceCondition condition) {
         this.condition = condition;
     }
 

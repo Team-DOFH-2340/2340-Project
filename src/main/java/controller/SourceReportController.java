@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Person;
-import model.WaterConditionReport;
+import model.WaterSourceCondition;
 import model.WaterSourceReport;
 import model.WaterSourceType;
 
@@ -19,7 +19,7 @@ public class SourceReportController {
     @FXML
     private ChoiceBox<WaterSourceType> typeField;
     @FXML
-    private ChoiceBox<WaterConditionReport> conditionField;
+    private ChoiceBox<WaterSourceCondition> conditionField;
     @FXML
     private DatePicker dateField;
     @FXML
@@ -42,8 +42,8 @@ public class SourceReportController {
         typeField.getItems().setAll(WaterSourceType.values());
         typeField.setValue(WaterSourceType.BOTTLED);
         this.configTimeFields();
-        conditionField.getItems().setAll(WaterConditionReport.values());
-        conditionField.setValue(WaterConditionReport.POTABLE);
+        conditionField.getItems().setAll(WaterSourceCondition.values());
+        conditionField.setValue(WaterSourceCondition.POTABLE);
         this.dateField.setValue(LocalDate.now());
     }
 
@@ -86,9 +86,10 @@ public class SourceReportController {
         newReport.setType(typeField.getValue());
         newReport.setCondition(conditionField.getValue());
         SQLInterface.createWaterSourceReport(newReport);
+        System.out.println(newReport.getType().toString());
         System.out.println("Report entered successfully");
         // Refresh unconditionally from controller upon return instead of this?
-        mainscreencontroller.refreshMapPins();
+        mainscreencontroller.addPin(newReport);
         ((Stage)submitBtn.getScene().getWindow()).close();
     }
 

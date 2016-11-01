@@ -36,4 +36,8 @@ public class Marker extends com.lynden.gmapsfx.javascript.object.Marker {
         }
         this.windowVisible = !this.windowVisible;
     }
+
+    public Report getReport() {
+        return report;
+    }
 }

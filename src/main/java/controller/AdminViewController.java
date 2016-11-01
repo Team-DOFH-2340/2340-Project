@@ -1,10 +1,16 @@
 package controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import model.Person;
 import model.Report;
@@ -36,9 +42,9 @@ public class AdminViewController {
     @FXML
     private TableColumn<WaterSourceReport, Double> s_longitudeField;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> s_typeField;
+    private TableColumn<WaterSourceReport, String> s_typeField;
     @FXML
-    private TableColumn<WaterSourceReport, Integer> s_conditionField;
+    private TableColumn<WaterSourceReport, String> s_conditionField;
     @FXML
     private TableView<WaterQualityReport> qualityView;
     @FXML
@@ -76,6 +82,8 @@ public class AdminViewController {
     @FXML
     private TableColumn<Person, String> u_addressField;
 
+    private MainScreenController mainscreencontroller;
+
     /** Loads data from database into the admin view table. */
     public void loadData() {
         Collection<Person> people1 = SQLInterface.getAllUsersInSystem();
@@ -85,7 +93,7 @@ public class AdminViewController {
         u_usernameField.setCellValueFactory(new PropertyValueFactory<Person, String>("username"));
         u_nameField.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         u_emailField.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-        u_addressField.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
+        u_addressField.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHomeAddress().toString()));
 
         for (Person person: people1) {
             userView.getItems().add(person);
@@ -100,8 +108,8 @@ public class AdminViewController {
         s_minuteField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("minute"));
         s_latitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("latitude"));
         s_longitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("longitude"));
-        s_typeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("type"));
-        s_conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("condition"));
+        s_typeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("type"));
+        s_conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("condition"));
 
         for (WaterSourceReport report: reports1) {
             sourceView.getItems().add(report);
@@ -123,5 +131,42 @@ public class AdminViewController {
         for (WaterQualityReport report: reports2) {
             qualityView.getItems().add(report);
         }
+
+        sourceView.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.DELETE) {
+                    WaterSourceReport report = sourceView.getSelectionModel().getSelectedItem();
+                    SQLInterface.deleteReport("WaterSource", report.getReport_id());
+                    sourceView.getItems().remove(report);
+                    try {
+                        mainscreencontroller.removePin(false, report.getReport_id());
+                    } catch(Exception e) {
+
+                    }
+                }
+            }
+        });
+
+        qualityView.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.DELETE) {
+                    WaterQualityReport report = qualityView.getSelectionModel().getSelectedItem();
+                    SQLInterface.deleteReport("WaterQuality", report.getReport_id());
+                    qualityView.getItems().remove(report);
+                    try {
+                        mainscreencontroller.removePin(true, report.getReport_id());
+                    } catch(Exception e) {
+
+                    }
+                }
+            }
+        });
+    }
+
+    /** Called to give a reference to the main controller. */
+    public void linkMainController(MainScreenController controller) {
+        mainscreencontroller = controller;
     }
 }

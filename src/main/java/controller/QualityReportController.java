@@ -87,7 +87,7 @@ public class QualityReportController {
             SQLInterface.createWaterQualityReport(newReport);
             System.out.println("Report entered successfully");
             // Refresh unconditionally from controller upon return instead of this?
-            mainscreencontroller.refreshMapPins();
+            mainscreencontroller.addPin(newReport);
             ((Stage)submitBtn.getScene().getWindow()).close();
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

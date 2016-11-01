@@ -112,6 +112,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 800, 600);
         AdminViewController controller = loader.getController();
+        controller.linkMainController(this);
         controller.loadData();
         stage.setTitle("Admin Tools");
         stage.setScene(scene);
@@ -171,6 +172,9 @@ public class MainScreenController implements Initializable, MapComponentInitiali
                 }
             });
         }
+        // zoom map to fix bug ( better solution ?? )
+        int currentZoom = map.getZoom();
+        map.setZoom( currentZoom - 1 );
     }
 
     /** Handles clicks on the map. */
@@ -251,6 +255,29 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         } else {
             mode_button.setStyle("-fx-background-color: cyan;");
             mode_button.setText("Quality Mode");
+        }
+    }
+
+    public void addPin(Report report) {
+        Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
+                report.getLatitude(), report.getLongitude())).icon(report.getIconURL()), map, report);
+        tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
+        map.addMarker(tMarker);
+        markers.add(tMarker);
+        map.addUIEventHandler(tMarker, UIEventType.click, new UIEventHandler() {
+            @Override
+            public void handle(JSObject jsObject) {
+                tMarker.toggleWindowVisibility();
+            }
+        });
+    }
+
+    public void removePin(boolean type, int id) {
+        for (Marker marker: markers) {
+            if (marker.getReport().getReport_id() == id) {
+                if (!type && WaterSourceReport.class.isInstance(marker.getReport())) map.removeMarker(marker);
+                else if (type && WaterQualityReport.class.isInstance(marker.getReport())) map.removeMarker(marker);
+            }
         }
     }
 }

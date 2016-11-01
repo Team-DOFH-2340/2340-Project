@@ -189,8 +189,8 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%s', '%s')",
-                    report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType(), report.getCondition());
+            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%d', '%d')",
+                    report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType().ordinal(), report.getCondition().ordinal());
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
@@ -214,8 +214,8 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = String.format("INSERT INTO WaterQuality(User, Date, Hour, Minute, Latitude, Longitude, VirusPPM, ContaminantPPM, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%f', '%f', '%s')",
-                    report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getVirusPPM(), report.getContaminantPPM(), report.getCondition());
+            String sql = String.format("INSERT INTO WaterQuality(User, Date, Hour, Minute, Latitude, Longitude, VirusPPM, ContaminantPPM, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%f', '%f', '%d')",
+                    report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getVirusPPM(), report.getContaminantPPM(), report.getCondition().ordinal());
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
@@ -254,7 +254,7 @@ public class SQLInterface {
                 temp.setLatitude(rs.getDouble(6));
                 temp.setLongitude(rs.getDouble(7));
                 temp.setType(WaterSourceType.values()[rs.getInt(8)]);
-                temp.setCondition(WaterConditionReport.values()[rs.getInt(9)]);
+                temp.setCondition(WaterSourceCondition.values()[rs.getInt(9)]);
                 collection.add(temp);
             }
         } catch (Exception e) {
@@ -399,6 +399,19 @@ public class SQLInterface {
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public static void deleteReport(String table, int report_id) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = String.format("DELETE from %s where ReportNumber=%d;", table, report_id);
+            stmt.executeUpdate(sql);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
