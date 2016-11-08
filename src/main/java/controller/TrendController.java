@@ -31,6 +31,9 @@ public class TrendController implements Initializable {
     Double radius;
     TrendReportType type;
 
+    String[] months = new String[] {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
+
     @FXML
     NumberAxis yAxis;
     @FXML
@@ -51,19 +54,20 @@ public class TrendController implements Initializable {
     /** Called as the Controller is starting. */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        yAxis.setUpperBound(1000);
+        chart.setAnimated(false);
+        //yAxis.setUpperBound(1000);
         yAxis.setLowerBound(0);
+        ObservableList<String> xLabels = FXCollections.observableArrayList();
+        xLabels.addAll(months);
+        xAxis.setCategories(xLabels);
+        xAxis.setTickLabelsVisible(true);
+        yAxis.setAutoRanging(true);
     }
 
     public void setUp(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
         Collection<WaterQualityReport> a = SQLInterface.getAllQualityReportsInSysten();
         LatLong searchPoint = new LatLong(latitude, longitude);
-        String[] months = new String[] {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
-        ObservableList<String> xLabels = FXCollections.observableArrayList();
-        xLabels.addAll(months);
-        xAxis.setCategories(xLabels);
-        xAxis.setTickLabelsVisible(true);
 
         HashMap<String, Double> sums = new HashMap<>();
         HashMap<String, Integer> count = new HashMap<>();
