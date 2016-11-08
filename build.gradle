@@ -15,7 +15,7 @@ jar {
     manifest {
         attributes("Implementation-Title": "Hayden Build",
             "Implementation-Version": "3.9.2",
-		    "Main-Class": "MainFXApplication",
+		    "Main-Class": "fxapp.MainFXApplication",
 		    "Class-Path": "../../lib/sqlite-jdbc.jar")
 	}
 }

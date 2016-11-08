@@ -5,6 +5,7 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -175,6 +176,21 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         // zoom map to fix bug ( better solution ?? )
         int currentZoom = map.getZoom();
         map.setZoom( currentZoom - 1 );
+    }
+
+    @FXML
+    public void trends() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource("../trendview.fxml"));
+        Parent loginRoot = loader.load();
+        Scene scene = new Scene(loginRoot, 800, 600);
+        AdminViewController controller = loader.getController();
+        controller.linkMainController(this);
+        controller.loadData();
+        stage.setTitle("Admin Tools");
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     /** Handles clicks on the map. */
