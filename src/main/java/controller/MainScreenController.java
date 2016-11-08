@@ -182,13 +182,11 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     public void trends() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../trendview.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("../trendviewsetup.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 800, 600);
-        AdminViewController controller = loader.getController();
-        controller.linkMainController(this);
-        controller.loadData();
-        stage.setTitle("Admin Tools");
+        TrendSetupController controller = loader.getController();
+        stage.setTitle("Historical Trends Search");
         stage.setScene(scene);
         stage.showAndWait();
     }

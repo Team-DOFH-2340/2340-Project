@@ -9,35 +9,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <VBox xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="10"
-      fx:controller="controller.MainScreenController">
+      fx:controller="controller.TrendController">
 
     <padding>
         <Insets top="25" right="25" bottom="10" left="25"/>
     </padding>
 
-    <BorderPane>
-        <left>
-            <Button text="Pin Creation" fx:id="mode_button"
-                    onMouseClicked="#mode_switch"/>
-        </left>
-        <right>
-            <HBox spacing="25">
-                <Button text="View Historical Trends" fx:id="trends"
-                        onMouseClicked="#trends"
-                        alignment="TOP_RIGHT"/>
-                <Button text="Admin Screen" fx:id="adminScreen"
-                        onMouseClicked="#adminScreen"
-                        alignment="TOP_RIGHT"/>
-                <Button text="Edit Profile" fx:id="edit"
-                        onMouseClicked="#editProfile"
-                        alignment="TOP_RIGHT"/>
-                <Button text="Log Out" fx:id="logout"
-                        onMouseClicked="#logout"
-                        alignment="TOP_RIGHT"/>
-            </HBox>
-        </right>
-    </BorderPane>
-
-    <ScatterChart fx:id="chart"></ScatterChart>
+    <ScatterChart fx:id="chart">
+        <xAxis>
+            <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis side="LEFT" />
+        </yAxis>
+    </ScatterChart>
 </VBox>
