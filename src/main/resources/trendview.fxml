@@ -20,10 +20,10 @@
 
     <ScatterChart fx:id="chart">
         <xAxis>
-            <CategoryAxis side="BOTTOM" />
+            <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
         </xAxis>
         <yAxis>
-            <NumberAxis side="LEFT" />
+            <NumberAxis side="LEFT" fx:id="yAxis" />
         </yAxis>
     </ScatterChart>
 </VBox>

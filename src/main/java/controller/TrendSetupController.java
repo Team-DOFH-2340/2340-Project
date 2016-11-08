@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.time.LocalDate;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 
 /**
  * Controller for QualityReport creation view.
@@ -44,18 +46,20 @@ public class TrendSetupController {
     }
 
     /** Creates a new WaterSourceReport and populates its data from the view. */
-    public void submit() {
+    public void submit() throws Exception { // TODO REMOVE
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../trendview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../trendview.fxml"));
             Parent loginRoot = loader.load();
             Scene scene = new Scene(loginRoot, 800, 600);
+            loader.setRoot(scene);
+
             TrendController controller = loader.getController();
-            controller.setCriteria(startDateField.getValue(), endDateField.getValue(), Double.parseDouble(latitudeField.getText()), Double.parseDouble(longitudeField.getText()), Double.parseDouble(radiusField.getText()), typeField.getValue());
+            controller.setUp(startDateField.getValue(), endDateField.getValue(), Double.parseDouble(latitudeField.getText()), Double.parseDouble(longitudeField.getText()), Double.parseDouble(radiusField.getText()), typeField.getValue());
             stage.setTitle("Historical Trends");
             stage.setScene(scene);
             ((Stage) submitBtn.getScene().getWindow()).close();
+            Thread.sleep(1000);
             stage.showAndWait();
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

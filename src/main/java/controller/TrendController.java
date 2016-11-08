@@ -1,17 +1,17 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.*;
 import model.TrendReportType;
 import model.WaterQualityReport;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import com.lynden.gmapsfx.javascript.object.LatLong;
 
 /**
@@ -24,44 +24,73 @@ public class TrendController implements Initializable {
 
     ScatterChart.Series<String, Double> series  = new ScatterChart.Series<>();
 
+    LocalDate startDate;
+    LocalDate endDate;
+    Double latitude;
+    Double longitude;
+    Double radius;
+    TrendReportType type;
+
+    @FXML
+    NumberAxis yAxis;
+    @FXML
+    CategoryAxis xAxis;
+
+    public TrendController() { System.out.println("Constructed with no args.");}
+
+    public TrendController(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
+        System.out.println("Constructed with args.");
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
+        this.type = type;
+
+    }
     /** Called as the Controller is starting. */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Collection<WaterQualityReport> a = SQLInterface.getAllQualityReportsInSysten();
-        chart.getData().add(series);
-        for (WaterQualityReport w: a) {
-            // this part makes the data show up on the graph, but it shows all the data
-            series.getData().add(new ScatterChart.Data<>(w.getDate().toString(), w.getVirusPPM()));
-            series.getData().add(new ScatterChart.Data<>(w.getDate().toString(), w.getContaminantPPM()));
-        }
+        yAxis.setUpperBound(1000);
+        yAxis.setLowerBound(0);
     }
 
-    public void setCriteria(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
+    public void setUp(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
         Collection<WaterQualityReport> a = SQLInterface.getAllQualityReportsInSysten();
-        series.nameProperty().setValue(type.toString());
-
         LatLong searchPoint = new LatLong(latitude, longitude);
+        String[] months = new String[] {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
+        ObservableList<String> xLabels = FXCollections.observableArrayList();
+        xLabels.addAll(months);
+        xAxis.setCategories(xLabels);
+        xAxis.setTickLabelsVisible(true);
+
+        HashMap<String, Double> sums = new HashMap<>();
+        HashMap<String, Integer> count = new HashMap<>();
         for (WaterQualityReport w: a) {
-            /*System.out.println(w.getContaminantPPM());
-            System.out.println(w.getVirusPPM());
-            System.out.println("Start date: " + startDate.compareTo(w.getDate()));
-            System.out.println("End date: " + endDate.compareTo(w.getDate()));
-            System.out.println("Distance from search point: " + searchPoint.distanceFrom(new LatLong(w.getLatitude(), w.getLongitude())));
-            // I'm pretty sure this filter part works, but I can't add data at this point.
             if (startDate.compareTo(w.getDate()) <= 0 && endDate.compareTo(w.getDate()) >= 0 && searchPoint.distanceFrom(new LatLong(w.getLatitude(), w.getLongitude())) <= radius) {
-                System.out.println("Checks out!");
+                String key = months[w.getDate().getMonth().getValue() - 1];
+                count.put(key, count.getOrDefault(key, 0) + 1);
+                Double putting = sums.getOrDefault(key, 0.00);
+                Double adding;
                 if(type == TrendReportType.VIRUS) {
-                    System.out.println("Add virus data");*/
-                    series.getData().add(new ScatterChart.Data<>(w.getDate().toString(), w.getVirusPPM()));
-                /*} else {
-                    System.out.println("Add contaminant data");*/
-                    series.getData().add(new ScatterChart.Data<>(w.getDate().toString(), w.getContaminantPPM()));
-                /*}
-            } else {
-                System.out.println("One of those failed.");
-            }*/
+                    adding = w.getVirusPPM();
+                } else {
+                    adding = w.getContaminantPPM();
+                }
+                sums.put(key, putting + adding);
+            }
         }
 
+        ScatterChart.Series<String, Double> series = new ScatterChart.Series<>();
+        for (String month : months) { // 1 to skip null first field
+            Double average = sums.getOrDefault(month, 0.00) / count.getOrDefault(month, 1);
+            series.getData().add(new ScatterChart.Data<>(month, average));
+        }
+        series.setName("PPM");
+        ObservableList<ScatterChart.Series<String, Double>> data = FXCollections.observableArrayList();
+        data.addAll(series);
+        chart.getData().clear();
+        chart.getData().addAll(series);
     }
 }
