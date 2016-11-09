@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="10"
+      fx:controller="controller.TrendController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
+
+    <ScatterChart fx:id="chart">
+        <xAxis>
+            <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis side="LEFT" fx:id="yAxis" />
+        </yAxis>
+    </ScatterChart>
+</VBox>

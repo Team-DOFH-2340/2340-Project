@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.lynden:GMapsFX:2.0.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lynden/GMapsFX/2.0.9/49eead2e701ff2112118ce30fbcb13ccc37ace49/GMapsFX-2.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lynden/GMapsFX/2.0.9/d5a8e917b52b72debc117ed43cc59bb76d34db81/GMapsFX-2.0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

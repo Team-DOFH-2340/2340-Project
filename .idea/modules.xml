@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2340-Project.iml" filepath="$PROJECT_DIR$/.idea/modules/2340-Project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2340-Project_main.iml" filepath="$PROJECT_DIR$/.idea/modules/2340-Project_main.iml" group="2340-Project" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2340-Project_test.iml" filepath="$PROJECT_DIR$/.idea/modules/2340-Project_test.iml" group="2340-Project" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CleanWaterCrowdSourcing.iml" filepath="$PROJECT_DIR$/.idea/modules/CleanWaterCrowdSourcing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CleanWaterCrowdSourcing_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CleanWaterCrowdSourcing_main.iml" group="CleanWaterCrowdSourcing" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CleanWaterCrowdSourcing_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CleanWaterCrowdSourcing_test.iml" group="CleanWaterCrowdSourcing" />
     </modules>
   </component>
 </project>

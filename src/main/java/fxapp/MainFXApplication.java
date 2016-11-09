@@ -45,7 +45,7 @@ public class MainFXApplication extends Application {
     private boolean showLogin() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../login.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/login.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 500, 400);
         LoginController controller = loader.getController();
@@ -65,7 +65,7 @@ public class MainFXApplication extends Application {
      */
     private void initRootLayout(Stage mainScreen) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../main.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/main.fxml"));
         try {
             rootLayout = loader.load();
         } catch (IOException e) {

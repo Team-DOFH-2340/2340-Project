@@ -5,7 +5,6 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
@@ -22,7 +19,10 @@ import netscape.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * Controller for the main map screen of the app.
@@ -95,7 +95,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../editProfile.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/editProfile.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 350, 350);
         EditProfileController controller = loader.getController();
@@ -109,7 +109,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     public void adminScreen() throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../adminviewcontroller.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/adminviewcontroller.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 800, 600);
         AdminViewController controller = loader.getController();
@@ -182,7 +182,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     public void trends() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../trendviewsetup.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/trendviewsetup.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 800, 600);
         TrendSetupController controller = loader.getController();
@@ -227,7 +227,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../sourcereport.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/sourcereport.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 350, 350);
         SourceReportController controller = loader.getController();
@@ -244,7 +244,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("../qualityreport.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("/qualityreport.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 350, 350);
         QualityReportController controller = loader.getController();
