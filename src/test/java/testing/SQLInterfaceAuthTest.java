@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * Created by jminieri on 11/10/16.
  */
-public class SQLInterfaceTest {
+public class SQLInterfaceAuthTest {
     private ArrayList<String> userNames = new ArrayList<>();
     @Before
     public void setUp() {
