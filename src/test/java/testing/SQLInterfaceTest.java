@@ -13,6 +13,10 @@ public class SQLInterfaceTest {
     @Before
     public void setUp() {
         SQLInterface.init();
+        SQLInterface.createLogin("Harambe", "a", "Harambe", 3);
+        SQLInterface.createLogin("steve11", "steveJobs", "Steve Jobs", 3);
+        SQLInterface.createLogin("bobwaters", "bobw4t3rs", "Bob Waters", 1);
+        SQLInterface.createLogin("bottledwaters", "fake1", "Bottled Waters", 2);
 
     }
 

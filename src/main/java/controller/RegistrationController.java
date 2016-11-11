@@ -51,6 +51,11 @@ public class RegistrationController {
             hasRegistered = true;
             ((Stage) passwordField.getScene().getWindow()).close();
         } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERROR");
+            alert.setHeaderText(null);
+            alert.setContentText("Username already exists in system");
+            alert.showAndWait();
             System.out.println("registration failure");
         }
     }

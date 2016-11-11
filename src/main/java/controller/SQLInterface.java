@@ -153,11 +153,6 @@ public class SQLInterface {
     public static boolean createLogin(String username, String password, String name, int usertype) {
         // TODO Refactor to take a Person object?
         if (duplicateUN(username)) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERROR");
-            alert.setHeaderText(null);
-            alert.setContentText("Username already exists in system");
-            alert.showAndWait();
             return false;
         } else {
             try {
