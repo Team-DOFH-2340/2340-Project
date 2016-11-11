@@ -412,4 +412,17 @@ public class SQLInterface {
             System.exit(0);
         }
     }
+
+    public static void deleteUser(String username) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            String sql = String.format("DELETE from User where Username ='%s';", username);
+            stmt.executeUpdate(sql);
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
 }
