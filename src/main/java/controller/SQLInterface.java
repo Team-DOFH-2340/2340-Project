@@ -240,17 +240,9 @@ public class SQLInterface {
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM WaterSource");
             while (rs.next()) {
-                WaterSourceReport temp = new WaterSourceReport();
-                temp.setReport_id(rs.getInt(1));
-                temp.setReportedBy(rs.getString(2));
-                temp.setDate(LocalDate.parse(rs.getString(3)));
-                temp.setHour(rs.getInt(4));
-                temp.setMinute(rs.getInt(5));
-                temp.setLatitude(rs.getDouble(6));
-                temp.setLongitude(rs.getDouble(7));
-                temp.setType(WaterSourceType.values()[rs.getInt(8)]);
-                temp.setCondition(WaterSourceCondition.values()[rs.getInt(9)]);
-                collection.add(temp);
+                collection.add(new WaterSourceReport(rs.getInt(1), rs.getString(2), LocalDate.parse(rs.getString(3)),
+                        rs.getInt(4), rs.getInt(5), rs.getDouble(6), rs.getDouble(7), WaterSourceType.values()[rs.getInt(8)],
+                        WaterSourceCondition.values()[rs.getInt(9)]));
             }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

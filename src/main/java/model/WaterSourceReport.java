@@ -1,4 +1,5 @@
 package model;
+import java.time.LocalDate;
 
 /**
  * Data holder for everything in a source report.
@@ -33,5 +34,26 @@ public class WaterSourceReport extends Report {
     @Override
     public String getIconURL() {
         return "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    }
+
+    public WaterSourceReport(int reportId, String reportedBy, LocalDate date, int hour, int minute, double lat, double longi,
+                             WaterSourceType type, WaterSourceCondition cond) {
+        super(reportId, reportedBy, date, hour, minute, lat, longi);
+        this.type = type;
+        this.condition = cond;
+    }
+
+    public WaterSourceReport() { super(); }
+
+    @Override
+    public boolean equals(Object o) {
+        if ((o instanceof Report)) {
+            Report r = (Report) o;
+            return r.getDate().equals(this.getDate()) && this.getHour() == r.getHour() && this.getMinute() == r.getMinute() &&
+                    this.getReportedBy().equals(r.getReportedBy());
+        } else {
+            System.out.println("NOT REPORT!");
+            return false;
+        }
     }
 }

@@ -51,6 +51,18 @@ public class Report {
 
     public void setLongitude(double longitude) { this.longitude = longitude; }
 
+    public Report(int reportId, String reportedBy, LocalDate date, int hour, int minute, double lat, double longi) {
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
+        this.longitude = longi;
+        this.latitude = lat;
+        this.reportedBy = reportedBy;
+        this.report_id = reportId;
+    }
+
+    public Report(){};
+
     /**
      * @return HTML encoding to be used in map view.
      */
@@ -61,4 +73,10 @@ public class Report {
     public String getIconURL() {
         return "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
     }
+
+    @Override
+    public int hashCode() {
+        return this.minute;
+    }
+
 }
