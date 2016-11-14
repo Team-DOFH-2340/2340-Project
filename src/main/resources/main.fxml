@@ -21,11 +21,11 @@
         </left>
         <right>
             <HBox spacing="25">
-                <Button text="Admin Screen" fx:id="adminScreen"
-                        onMouseClicked="#adminScreen"
-                        alignment="TOP_RIGHT"/>
                 <Button text="View Historical Trends" fx:id="trends"
                         onMouseClicked="#trends"
+                        alignment="TOP_RIGHT"/>
+                <Button text="Admin Screen" fx:id="adminScreen"
+                        onMouseClicked="#adminScreen"
                         alignment="TOP_RIGHT"/>
                 <Button text="Edit Profile" fx:id="edit"
                         onMouseClicked="#editProfile"

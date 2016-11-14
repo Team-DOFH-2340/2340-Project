@@ -38,7 +38,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     @FXML
     private Button logout;
     @FXML
-    private Button trends;
+    private Button sourceReport;
     @FXML
     private Button adminScreen;
     @FXML
@@ -80,10 +80,6 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         // disable admin screen if user is not an admin
         if (!user.getType().hasPrivilege(Privilege.VIEW_ADMIN_SCREEN)) {
             adminScreen.setVisible(false);
-        }
-
-        if (!user.getType().hasPrivilege(Privilege.VIEW_TRENDS)) {
-            trends.setVisible(false);
         }
     }
 
@@ -255,7 +251,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         controller.linkMainController(this);
         controller.setUser(user);
         controller.setLatLon(lat, lon);
-        stage.setTitle("Quality Report");
+        stage.setTitle("Source Report");
         stage.setScene(scene);
         stage.showAndWait();
     }

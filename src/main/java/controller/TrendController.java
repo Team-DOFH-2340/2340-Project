@@ -47,7 +47,7 @@ public class TrendController implements Initializable {
         this.endDate = endDate;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.radius = radius * 1000;
+        this.radius = radius;
         this.type = type;
 
     }
