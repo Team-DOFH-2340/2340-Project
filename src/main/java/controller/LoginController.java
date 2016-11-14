@@ -49,7 +49,7 @@ public class LoginController {
     /** Opens the register screen and stores whether or not the user registered successfully. */
     public void register() {
         this.loggedIn = false;
-        boolean registered = showRegistration();
+        showRegistration();
     }
 
     /**
