@@ -17,7 +17,7 @@ public class WillTest {
     private ArrayList<Person> users = new ArrayList<>();
     @Before
     public void setUp() {
-        if (SQLInterface.createLogin("Harambe", "asdf", "Harambe", 1)) {
+        if (SQLInterface.createLogin("Harambe", "a", "Harambe", 1)) {
             users.add(new Person("Harambe", "Harambe"));
             users.get(0).setTitle("Gorilla");
         }
@@ -47,7 +47,7 @@ public class WillTest {
         SQLInterface.updateUser(users.get(2));
         SQLInterface.updateUser(users.get(3));
 
-        assertTrue(SQLInterface.authenticate("Harambe", "asdf").getTitle().equals("Gorilla"));
+        assertTrue(SQLInterface.authenticate("Harambe", "a").getTitle().equals("Gorilla"));
         assertTrue(SQLInterface.authenticate("ForeverAlone", "asdf").getTitle().equals("Sad"));
         assertTrue(SQLInterface.authenticate("Pepe", "asdf").getTitle().equals("Frog"));
         assertTrue(SQLInterface.authenticate("WillyWonka", "asdf").getTitle().equals("TellMeMore"));

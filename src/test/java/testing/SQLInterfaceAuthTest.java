@@ -16,8 +16,9 @@ public class SQLInterfaceAuthTest {
     private ArrayList<String> userNames = new ArrayList<>();
     @Before
     public void setUp() {
-        if (SQLInterface.createLogin("Harambe", "a", "Harambe", 3)) {
-            userNames.add("Harambe");
+        SQLInterface.init();
+        if (SQLInterface.createLogin("dude", "a", "dude", 3)) {
+            userNames.add("dude");
         }
         if (SQLInterface.createLogin("steve11", "steveJobs", "Steve Jobs", 3)) {
             userNames.add("steve11");
@@ -39,7 +40,7 @@ public class SQLInterfaceAuthTest {
     }
     @Test
     public void authenticate() {
-        assertTrue(SQLInterface.authenticate("Harambe", "a").getName().equals("Harambe"));
+        assertTrue(SQLInterface.authenticate("dude", "a").getName().equals("dude"));
         assertFalse(SQLInterface.authenticate("steve11", "steveJobs").getTitle().equals("CIO"));
         assertTrue(SQLInterface.authenticate("bobwaters", "bobw4t3rs").getName().equals("Bob Waters"));
         assertFalse(SQLInterface.authenticate("bottledwaters", "fake1").getName().equals("Bob Waters"));
