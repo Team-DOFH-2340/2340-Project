@@ -58,4 +58,11 @@ public class Person {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public Person() {}
+
+    public Person(String username, String name) {
+        this.username = username;
+        this.name = name;
+    }
 }
