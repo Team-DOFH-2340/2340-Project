@@ -4,14 +4,11 @@ import controller.LoginController;
 import controller.MainScreenController;
 import controller.SQLInterface;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.Person;
 
 import java.io.IOException;
@@ -30,7 +27,7 @@ public class MainFXApplication extends Application {
     public void start(Stage stage) throws Exception {
         SQLInterface.init();
         SQLInterface.checkDatabase();
-        mainScreen = stage;
+        Stage mainScreen = stage;
         boolean loggedIn = showLogin();
         if (!loggedIn) {
             return;
@@ -57,7 +54,6 @@ public class MainFXApplication extends Application {
     }
 
 
-    public Stage mainScreen;
     private Pane rootLayout;
 
     /**
@@ -69,7 +65,7 @@ public class MainFXApplication extends Application {
         try {
             rootLayout = loader.load();
         } catch (IOException e) {
-            System.out.println(e);
+            //System.out.println(e);
         }
 
         MainScreenController controller = loader.getController();

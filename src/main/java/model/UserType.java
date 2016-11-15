@@ -14,8 +14,8 @@ public enum UserType {
     MANAGER("Manager", new Privilege[]{VIEW_TRENDS, DELETE_REPORTS}, WORKER.privileges),
     ADMIN("Admin", new Privilege[]{BAN_USER, DELETE_USER, UNBLOCK_USER, VIEW_LOG, VIEW_ADMIN_SCREEN}, MANAGER.privileges);
 
-    private String name;
-    private List<Privilege> privileges;
+    private final String name;
+    private final List<Privilege> privileges;
 
     UserType(String name, Privilege[] privileges, List<Privilege> extraPrivileges) {
         this.name = name;

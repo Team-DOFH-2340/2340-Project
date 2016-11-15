@@ -9,7 +9,7 @@ public enum WaterSourceCondition {
     TREATABLE_MUDDY("Treatable-Muddy"),
     POTABLE("Potable");
 
-    private String name;
+    private final String name;
 
     WaterSourceCondition(String name) {
         this.name = name;

@@ -5,12 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Person;
-import model.UserType;
 
 /** Controller for the login screen. */
 public class LoginController {
@@ -49,11 +46,11 @@ public class LoginController {
     /** Opens the register screen and stores whether or not the user registered successfully. */
     public void register() {
         this.loggedIn = false;
-        boolean registered = showRegistration();
+        showRegistration();
     }
 
     /**
-     * @return True if user succesfully created a new account, false otherwise
+     * @return True if user successfully created a new account, false otherwise
      */
     private boolean showRegistration() {
         Stage stage = new Stage();

@@ -40,6 +40,7 @@ public class HaydenTest {
     @Test
     public void checkDatabase() {
         SQLInterface.getAllSourceReportsInSystem().forEach(e->reports.remove(e));
+        //System.out.println(reports.size());
         assertTrue(reports.size() == 0);
     }
 

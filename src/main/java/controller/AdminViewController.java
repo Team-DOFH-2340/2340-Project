@@ -1,23 +1,15 @@
 package controller;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.util.Callback;
 import model.Person;
-import model.Report;
 import model.WaterQualityReport;
 import model.WaterSourceReport;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -88,11 +80,11 @@ public class AdminViewController {
     public void loadData() {
         Collection<Person> people1 = SQLInterface.getAllUsersInSystem();
 
-        u_typeField.setCellValueFactory(new PropertyValueFactory<Person, String>("type"));
-        u_titleField.setCellValueFactory(new PropertyValueFactory<Person, String>("title"));
-        u_usernameField.setCellValueFactory(new PropertyValueFactory<Person, String>("username"));
-        u_nameField.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        u_emailField.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+        u_typeField.setCellValueFactory(new PropertyValueFactory<>("type"));
+        u_titleField.setCellValueFactory(new PropertyValueFactory<>("title"));
+        u_usernameField.setCellValueFactory(new PropertyValueFactory<>("username"));
+        u_nameField.setCellValueFactory(new PropertyValueFactory<>("name"));
+        u_emailField.setCellValueFactory(new PropertyValueFactory<>("email"));
         u_addressField.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHomeAddress().toString()));
 
         for (Person person: people1) {
@@ -101,15 +93,15 @@ public class AdminViewController {
 
         Collection<WaterSourceReport> reports1 = SQLInterface.getAllSourceReportsInSystem();
 
-        s_idField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("report_id"));
-        s_usernameField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("reportedBy"));
-        s_dateField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("date"));
-        s_hourField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("hour"));
-        s_minuteField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("minute"));
-        s_latitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("latitude"));
-        s_longitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("longitude"));
-        s_typeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("type"));
-        s_conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("condition"));
+        s_idField.setCellValueFactory(new PropertyValueFactory<>("report_id"));
+        s_usernameField.setCellValueFactory(new PropertyValueFactory<>("reportedBy"));
+        s_dateField.setCellValueFactory(new PropertyValueFactory<>("date"));
+        s_hourField.setCellValueFactory(new PropertyValueFactory<>("hour"));
+        s_minuteField.setCellValueFactory(new PropertyValueFactory<>("minute"));
+        s_latitudeField.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        s_longitudeField.setCellValueFactory(new PropertyValueFactory<>("longitude"));
+        s_typeField.setCellValueFactory(new PropertyValueFactory<>("type"));
+        s_conditionField.setCellValueFactory(new PropertyValueFactory<>("condition"));
 
         for (WaterSourceReport report: reports1) {
             sourceView.getItems().add(report);
@@ -117,49 +109,43 @@ public class AdminViewController {
 
         Collection<WaterQualityReport> reports2 = SQLInterface.getAllQualityReportsInSysten();
 
-        q_idField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("report_id"));
-        q_usernameField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("reportedBy"));
-        q_dateField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, String>("date"));
-        q_hourField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("hour"));
-        q_minuteField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("minute"));
-        q_latitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("latitude"));
-        q_longitudeField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("longitude"));
-        q_virusField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("virusPPM"));
-        q_contaminantField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Double>("contaminantPPM"));
-        q_conditionField.setCellValueFactory(new PropertyValueFactory<WaterSourceReport, Integer>("condition"));
+        q_idField.setCellValueFactory(new PropertyValueFactory<>("report_id"));
+        q_usernameField.setCellValueFactory(new PropertyValueFactory<>("reportedBy"));
+        q_dateField.setCellValueFactory(new PropertyValueFactory<>("date"));
+        q_hourField.setCellValueFactory(new PropertyValueFactory<>("hour"));
+        q_minuteField.setCellValueFactory(new PropertyValueFactory<>("minute"));
+        q_latitudeField.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        q_longitudeField.setCellValueFactory(new PropertyValueFactory<>("longitude"));
+        q_virusField.setCellValueFactory(new PropertyValueFactory<>("virusPPM"));
+        q_contaminantField.setCellValueFactory(new PropertyValueFactory<>("contaminantPPM"));
+        q_conditionField.setCellValueFactory(new PropertyValueFactory<>("condition"));
 
         for (WaterQualityReport report: reports2) {
             qualityView.getItems().add(report);
         }
 
-        sourceView.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.DELETE) {
-                    WaterSourceReport report = sourceView.getSelectionModel().getSelectedItem();
-                    SQLInterface.deleteReport("WaterSource", report.getReport_id());
-                    sourceView.getItems().remove(report);
-                    try {
-                        mainscreencontroller.removePin(false, report.getReport_id());
-                    } catch(Exception e) {
+        sourceView.setOnKeyPressed(t -> {
+            if (t.getCode() == KeyCode.DELETE) {
+                WaterSourceReport report = sourceView.getSelectionModel().getSelectedItem();
+                SQLInterface.deleteReport("WaterSource", report.getReport_id());
+                sourceView.getItems().remove(report);
+                try {
+                    mainscreencontroller.removePin(false, report.getReport_id());
+                } catch(Exception ignored) {
 
-                    }
                 }
             }
         });
 
-        qualityView.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.DELETE) {
-                    WaterQualityReport report = qualityView.getSelectionModel().getSelectedItem();
-                    SQLInterface.deleteReport("WaterQuality", report.getReport_id());
-                    qualityView.getItems().remove(report);
-                    try {
-                        mainscreencontroller.removePin(true, report.getReport_id());
-                    } catch(Exception e) {
+        qualityView.setOnKeyPressed(t -> {
+            if (t.getCode() == KeyCode.DELETE) {
+                WaterQualityReport report = qualityView.getSelectionModel().getSelectedItem();
+                SQLInterface.deleteReport("WaterQuality", report.getReport_id());
+                qualityView.getItems().remove(report);
+                try {
+                    mainscreencontroller.removePin(true, report.getReport_id());
+                } catch(Exception ignored) {
 
-                    }
                 }
             }
         });

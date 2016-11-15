@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.scene.control.Alert;
 import model.*;
 
 import java.sql.*;
@@ -13,10 +12,9 @@ public class SQLInterface {
      * Initializes a connection with the database.
      */
     public static void init() {
-        Connection c = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            DriverManager.getConnection("jdbc:sqlite:test.db");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -28,7 +26,7 @@ public class SQLInterface {
      * Checks to see all tables exist in the database. If not, create them
      */
     public static void checkDatabase() {
-        Connection c = null;
+        Connection c;
         boolean createLogin = true;
         boolean createWaterSource = true;
         boolean createWaterQuality = true;
@@ -62,7 +60,7 @@ public class SQLInterface {
         }
     }
 
-    public static void createLoginTable() {
+    private static void createLoginTable() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -88,7 +86,7 @@ public class SQLInterface {
         System.out.println("Table created successfully");
     }
 
-    public static void createWaterSourceTable() {
+    private static void createWaterSourceTable() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -114,7 +112,7 @@ public class SQLInterface {
         System.out.println("Table created successfully");
     }
 
-    public static void createWaterQualityTable() {
+    private static void createWaterQualityTable() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -374,14 +372,14 @@ public class SQLInterface {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = c.createStatement();
-            String sql = String.format("UPDATE User SET "
+            String sql = "UPDATE User SET "
                     + "Title = '" + user.getTitle() + "', "
                     + "Name = '" + user.getName() + "', "
                     + "Email = '" + user.getEmail() + "', "
                     + "AddressLine1 = '" + user.getHomeAddress().getLine1() + "', "
                     + "AddressLine2 = '" + user.getHomeAddress().getLine2() + "', "
                     + "AddressLine3 = '" + user.getHomeAddress().getLine3() + "' "
-                    + "WHERE Username = '" + user.getUsername() + "'");
+                    + "WHERE Username = '" + user.getUsername() + "'";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             stmt.close();

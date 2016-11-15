@@ -15,7 +15,7 @@ import java.util.*;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 
 /**
- * Created by hayde on 11/7/2016.
+ * Controller for the TrendView.
  */
 public class TrendController implements Initializable {
 
@@ -24,14 +24,7 @@ public class TrendController implements Initializable {
 
     ScatterChart.Series<String, Double> series  = new ScatterChart.Series<>();
 
-    LocalDate startDate;
-    LocalDate endDate;
-    Double latitude;
-    Double longitude;
-    Double radius;
-    TrendReportType type;
-
-    String[] months = new String[] {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    private final String[] months = new String[] {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 
     @FXML
@@ -43,12 +36,12 @@ public class TrendController implements Initializable {
 
     public TrendController(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
         System.out.println("Constructed with args.");
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
-        this.type = type;
+        LocalDate startDate1 = startDate;
+        LocalDate endDate1 = endDate;
+        Double latitude1 = latitude;
+        Double longitude1 = longitude;
+        Double radius1 = radius;
+        TrendReportType type1 = type;
 
     }
     /** Called as the Controller is starting. */

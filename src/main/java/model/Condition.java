@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by hayde on 10/27/2016.
+ * Describes the condition of water sources.
  */
 public enum Condition {
     SAFE("Safe"),

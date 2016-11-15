@@ -1,6 +1,5 @@
 package controller;
 
-import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
-
-import java.time.LocalDate;
-import java.util.Enumeration;
-import java.util.ResourceBundle;
 
 /**
  * Controller for QualityReport creation view.
@@ -32,17 +27,12 @@ public class TrendSetupController {
     @FXML
     private TextField radiusField;
 
-    private Person user;
-
-    private MainScreenController mainscreencontroller;
-
     @FXML
     private void initialize() {
         typeField.getItems().setAll(TrendReportType.values());
     }
 
     public void setUser(Person user) {
-        this.user = user;
     }
 
     /** Creates a new WaterSourceReport and populates its data from the view. */
@@ -78,7 +68,7 @@ public class TrendSetupController {
 
     /** Called to give a reference to the main controller. */
     public void linkMainController(MainScreenController controller) {
-        mainscreencontroller = controller;
+        //MainScreenController mainscreencontroller = controller;
     }
 
     /** Closes the window. */

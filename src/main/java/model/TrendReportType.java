@@ -7,7 +7,7 @@ public enum TrendReportType {
     VIRUS("Virus"),
     CONTAMINANT("Contaminant");
 
-    private String name;
+    private final String name;
 
     TrendReportType(String name) {
         this.name = name;

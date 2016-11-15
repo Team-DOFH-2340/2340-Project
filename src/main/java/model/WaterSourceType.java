@@ -11,7 +11,7 @@ public enum WaterSourceType {
     SPRING("Spring"),
     OTHER("Other");
 
-    private String name;
+    private final String name;
 
     WaterSourceType(String name) {
         this.name = name;

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by hayde on 10/27/2016.
+ * Describes a water quality report.
  */
 public class WaterQualityReport extends Report {
     private Condition condition;

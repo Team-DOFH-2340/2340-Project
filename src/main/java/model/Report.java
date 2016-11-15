@@ -51,7 +51,7 @@ public class Report {
 
     public void setLongitude(double longitude) { this.longitude = longitude; }
 
-    public Report(int reportId, String reportedBy, LocalDate date, int hour, int minute, double lat, double longi) {
+    Report(int reportId, String reportedBy, LocalDate date, int hour, int minute, double lat, double longi) {
         this.date = date;
         this.hour = hour;
         this.minute = minute;
@@ -61,7 +61,7 @@ public class Report {
         this.report_id = reportId;
     }
 
-    public Report(){};
+    Report(){}
 
     /**
      * @return HTML encoding to be used in map view.

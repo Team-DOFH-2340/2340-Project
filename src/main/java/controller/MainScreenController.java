@@ -50,11 +50,11 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     public Person user;
 
-    Set<Marker> markers;
+    private Set<Marker> markers;
 
-    int mode;   // 0 - normal, 1 - source, 2 - quality
+    private int mode;   // 0 - normal, 1 - source, 2 - quality
 
-    int mode_mod;
+    private int mode_mod;
 
     /**
      * allow for calling back to the main application code if necessary
@@ -166,12 +166,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
             tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
             map.addMarker(tMarker);
             markers.add(tMarker);
-            map.addUIEventHandler(tMarker, UIEventType.click, new UIEventHandler() {
-                @Override
-                public void handle(JSObject jsObject) {
-                    tMarker.toggleWindowVisibility();
-                }
-            });
+            map.addUIEventHandler(tMarker, UIEventType.click, jsObject -> tMarker.toggleWindowVisibility());
         }
         // zoom map to fix bug ( better solution ?? )
         int currentZoom = map.getZoom();
@@ -185,7 +180,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         loader.setLocation(MainFXApplication.class.getResource("/trendviewsetup.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 800, 600);
-        TrendSetupController controller = loader.getController();
+        //TrendSetupController controller = loader.getController();
         stage.setTitle("Historical Trends Search");
         stage.setScene(scene);
         stage.showAndWait();
@@ -223,7 +218,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     }
 
     /** Launches the window for creating a new Source Report */
-    public void sourceReport(double lat, double lon) throws Exception {
+    private void sourceReport(double lat, double lon) throws Exception {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
@@ -240,7 +235,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
     }
 
     /** Launches the window for creating a new Source Report */
-    public void qualityReport(double lat, double lon) throws Exception {
+    private void qualityReport(double lat, double lon) throws Exception {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
@@ -278,20 +273,13 @@ public class MainScreenController implements Initializable, MapComponentInitiali
         tMarker.setWindow(new InfoWindow(new InfoWindowOptions().content(report.toInfoWindow())));
         map.addMarker(tMarker);
         markers.add(tMarker);
-        map.addUIEventHandler(tMarker, UIEventType.click, new UIEventHandler() {
-            @Override
-            public void handle(JSObject jsObject) {
-                tMarker.toggleWindowVisibility();
-            }
-        });
+        map.addUIEventHandler(tMarker, UIEventType.click, jsObject -> tMarker.toggleWindowVisibility());
     }
 
     public void removePin(boolean type, int id) {
-        for (Marker marker: markers) {
-            if (marker.getReport().getReport_id() == id) {
-                if (!type && WaterSourceReport.class.isInstance(marker.getReport())) map.removeMarker(marker);
-                else if (type && WaterQualityReport.class.isInstance(marker.getReport())) map.removeMarker(marker);
-            }
-        }
+        markers.stream().filter(marker -> marker.getReport().getReport_id() == id).forEach(marker -> {
+            if (!type && WaterSourceReport.class.isInstance(marker.getReport())) map.removeMarker(marker);
+            else if (type && WaterQualityReport.class.isInstance(marker.getReport())) map.removeMarker(marker);
+        });
     }
 }
