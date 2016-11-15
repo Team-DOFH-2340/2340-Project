@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 /**
  * Describes a water quality report.
  */
@@ -12,10 +14,16 @@ public class WaterQualityReport extends Report {
 
     }
 
-    public WaterQualityReport(Condition condition, double virusPPM, double contaminantPPM) {
+    public WaterQualityReport(Condition condition, double virusPPM, double contaminantPPM, LocalDate date, int hour, int minute, double longi, double lati, String reportedBy) {
         this.condition = condition;
         this.virusPPM = virusPPM;
         this.contaminantPPM = contaminantPPM;
+        this.setDate(date);
+        this.setHour(hour);
+        this.setMinute(minute);
+        this.setLongitude(longi);
+        this.setLatitude(lati);
+        this.setReportedBy(reportedBy);
     }
 
     public Condition getCondition() {

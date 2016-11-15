@@ -20,9 +20,9 @@ public class SanketTest {
     @Before
     public void setUp() {
         reports = new HashSet<>();
-        reports.add(new WaterQualityReport(Condition.SAFE, 2.0, 19.0));
-        reports.add(new WaterQualityReport(Condition.UNSAFE, 2.0, 19.0));
-        reports.add(new WaterQualityReport(Condition.TREATABLE, 2.0, 19.0));
+        reports.add(new WaterQualityReport(Condition.SAFE, 2.0, 19.0, LocalDate.now(),1 ,2 ,10.0 ,1.56 ,"Sanket"));
+        reports.add(new WaterQualityReport(Condition.UNSAFE, 2.0, 19.0, LocalDate.now(),1 ,2 ,10.0 ,1.56 ,"Sanket"));
+        reports.add(new WaterQualityReport(Condition.TREATABLE, 2.0, 19.0, LocalDate.now(),1 ,2 ,10.0 ,1.56 ,"Sanket"));
 
     }
     @After
