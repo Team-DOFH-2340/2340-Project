@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 /**
  * Enum for all of the possible types of water source.

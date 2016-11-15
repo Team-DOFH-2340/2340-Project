@@ -1,9 +1,9 @@
-package controller;
+package main.java.controller;
 
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import model.Report;
+import main.java.model.Report;
 
 /**
  * ADds functionality to keep track of if info window is open in map.

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="10"
+      fx:controller="main.java.controller.MainScreenController">
+
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
+
+    <BorderPane>
+        <left>
+            <Button text="Pin Creation" fx:id="mode_button"
+                    onMouseClicked="#mode_switch"/>
+        </left>
+        <right>
+            <HBox spacing="25">
+                <Button text="View Historical Trends" fx:id="trends"
+                        onMouseClicked="#trends"
+                        alignment="TOP_RIGHT"/>
+                <Button text="Admin Screen" fx:id="adminScreen"
+                        onMouseClicked="#adminScreen"
+                        alignment="TOP_RIGHT"/>
+                <Button text="Edit Profile" fx:id="edit"
+                        onMouseClicked="#editProfile"
+                        alignment="TOP_RIGHT"/>
+                <Button text="Log Out" fx:id="logout"
+                        onMouseClicked="#logout"
+                        alignment="TOP_RIGHT"/>
+            </HBox>
+        </right>
+    </BorderPane>
+
+    <GoogleMapView fx:id="mapView" GridPane.rowIndex="2" GridPane.columnSpan="4"/>
+</VBox>

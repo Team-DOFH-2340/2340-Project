@@ -1,11 +1,11 @@
-package controller;
+package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.UserType;
+import main.java.model.UserType;
 
 /** Controller for the registration screen. */
 public class RegistrationController {
@@ -46,7 +46,7 @@ public class RegistrationController {
             alert.showAndWait();
             return;
         }
-        if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText(), nameField.getText(), userTypeField.getValue().ordinal())) {
+        if (SQLInterface.createLogin(usernameField.getText(), passwordField.getText(), nameField.getText(), userTypeField.getValue().ordinal())) {
             System.out.println("registration successful");
             hasRegistered = true;
             ((Stage) passwordField.getScene().getWindow()).close();

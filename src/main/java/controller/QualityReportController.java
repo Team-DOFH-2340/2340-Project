@@ -1,9 +1,9 @@
-package controller;
+package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.*;
+import main.java.model.*;
 
 import java.time.LocalDate;
 

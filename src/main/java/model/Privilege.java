@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 /**
  * Defines the abilities that a user of the application can have.

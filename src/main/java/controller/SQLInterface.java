@@ -1,6 +1,6 @@
-package controller;
+package main.java.controller;
 
-import model.*;
+import main.java.model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -414,5 +414,25 @@ public class SQLInterface {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public static void clean() {
+        Connection c;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = c.createStatement();
+            stmt.executeUpdate("DROP TABLE User;");
+            stmt.executeUpdate("DROP TABLE WaterSource;");
+            stmt.executeUpdate("DROP TABLE WaterQuality;");
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        createLoginTable();
+        createWaterSourceTable();
+        createWaterQualityTable();
     }
 }

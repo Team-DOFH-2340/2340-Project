@@ -1,9 +1,9 @@
-package model;
+package main.java.model;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import static model.Privilege.*;
+import static main.java.model.Privilege.*;
 
 /**
  * Enum used to choose account type.

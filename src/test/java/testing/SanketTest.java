@@ -1,8 +1,8 @@
-package testing;
+package test.java.testing;
 
-import controller.SQLInterface;
-import model.WaterQualityReport;
-import model.Condition;
+import main.java.controller.SQLInterface;
+import main.java.model.WaterQualityReport;
+import main.java.model.Condition;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +19,8 @@ public class SanketTest {
 
     @Before
     public void setUp() {
+        SQLInterface.init();
+        SQLInterface.clean();
         reports = new HashSet<>();
         reports.add(new WaterQualityReport(Condition.SAFE, 2.0, 19.0, LocalDate.now(),1 ,2 ,10.0 ,1.56 ,"Sanket"));
         reports.add(new WaterQualityReport(Condition.UNSAFE, 2.0, 19.0, LocalDate.now(),1 ,2 ,10.0 ,1.56 ,"Sanket"));

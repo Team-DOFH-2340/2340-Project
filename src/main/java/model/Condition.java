@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 /**
  * Describes the condition of water sources.

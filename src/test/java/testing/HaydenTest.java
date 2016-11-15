@@ -1,9 +1,7 @@
-package testing;
+package test.java.testing;
 
-import controller.SQLInterface;
-import model.WaterSourceCondition;
-import model.WaterSourceReport;
-import model.WaterSourceType;
+import main.java.controller.*;
+import main.java.model.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +18,8 @@ public class HaydenTest {
 
     @Before
     public void setUp() {
+        SQLInterface.init();
+        SQLInterface.clean();
         reports = new HashSet<>();
         for (int i = 0; i < 10; i++) {
             reports.add(new WaterSourceReport(i * 1000 + 392, "Hayden", LocalDate.now(), i, i*4, i, i,
@@ -40,7 +40,6 @@ public class HaydenTest {
     @Test
     public void checkDatabase() {
         SQLInterface.getAllSourceReportsInSystem().forEach(e->reports.remove(e));
-        //System.out.println(reports.size());
         assertTrue(reports.size() == 0);
     }
 

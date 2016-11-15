@@ -1,4 +1,4 @@
-package controller;
+package main.java.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -6,9 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import model.Person;
-import model.WaterQualityReport;
-import model.WaterSourceReport;
+import main.java.model.*;
 
 import java.util.Collection;
 

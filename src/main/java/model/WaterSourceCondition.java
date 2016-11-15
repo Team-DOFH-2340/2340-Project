@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 /**
  * Enum for the qualities that a water source can have.

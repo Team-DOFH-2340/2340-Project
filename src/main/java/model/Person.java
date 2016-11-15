@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 /**
  * Class that defines a user.

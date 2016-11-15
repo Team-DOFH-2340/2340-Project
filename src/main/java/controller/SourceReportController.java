@@ -1,12 +1,12 @@
-package controller;
+package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Person;
-import model.WaterSourceCondition;
-import model.WaterSourceReport;
-import model.WaterSourceType;
+import main.java.model.Person;
+import main.java.model.WaterSourceCondition;
+import main.java.model.WaterSourceReport;
+import main.java.model.WaterSourceType;
 
 import java.time.LocalDate;
 

@@ -1,12 +1,12 @@
-package controller;
+package main.java.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import model.TrendReportType;
-import model.WaterQualityReport;
+import main.java.model.TrendReportType;
+import main.java.model.WaterQualityReport;
 
 import java.net.URL;
 import java.time.LocalDate;

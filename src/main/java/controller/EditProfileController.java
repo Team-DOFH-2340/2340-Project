@@ -1,17 +1,17 @@
-package controller;
+package main.java.controller;
 
-import fxapp.MainFXApplication;
+import main.java.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Person;
+import main.java.model.*;
 
 /**
  * Controller for the Edit Profile view. Can display a user and update their info in the database.
  */
 public class EditProfileController {
-     private MainFXApplication mainApplication;
+    private MainFXApplication mainApplication;
 
     private Person user;
 

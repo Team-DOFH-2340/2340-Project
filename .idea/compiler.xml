@@ -18,9 +18,5 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="CleanWaterCrowdSourcing_main" target="1.8" />
-      <module name="CleanWaterCrowdSourcing_test" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

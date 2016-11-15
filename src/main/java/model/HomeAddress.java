@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 /**
  * Simple data holder for an address.

@@ -1,6 +1,6 @@
-package testing;
+package test.java.testing;
 
-import controller.SQLInterface;
+import main.java.controller.SQLInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +17,7 @@ public class SQLInterfaceAuthTest {
     @Before
     public void setUp() {
         SQLInterface.init();
+        SQLInterface.clean();
         if (SQLInterface.createLogin("dude", "a", "dude", 3)) {
             userNames.add("dude");
         }

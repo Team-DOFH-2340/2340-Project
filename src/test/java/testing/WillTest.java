@@ -1,8 +1,11 @@
-package testing;
+package test.java.testing;
 
 import java.util.ArrayList;
-import controller.SQLInterface;
-import model.Person;
+import java.util.List;
+
+import main.java.controller.SQLInterface;
+import main.java.model.HomeAddress;
+import main.java.model.Person;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,37 +17,43 @@ import static org.junit.Assert.assertTrue;
  * Created by willi on 11/14/2016.
  */
 public class WillTest {
-    private ArrayList<Person> users = new ArrayList<>();
+    private ArrayList<Person> person_list = new ArrayList<Person>();
     @Before
     public void setUp() {
-        if (SQLInterface.createLogin("Harambe", "asdf", "Harambe", 1)) {
-            users.add(new Person("Harambe", "Harambe"));
-            users.get(0).setTitle("Gorilla");
-        }
-        if (SQLInterface.createLogin("ForeverAlone", "asdf", "ForeverAlone", 1)) {
-            users.add(new Person("ForeverAlone", "ForeverAlone"));
-            users.get(1).setTitle("Sad");
-        }
-        if (SQLInterface.createLogin("Pepe", "asdf", "Pepe", 1)) {
-            users.add(new Person("Pepe", "Pepe"));
-            users.get(2).setTitle("Frog");
-        }
-        if (SQLInterface.createLogin("WillyWonka", "asdf", "WillyWonka", 1)) {
-            users.add(new Person("WillyWonka", "WillyWonka"));
-            users.get(3).setTitle("TellMeMore");
-        }
+        SQLInterface.init();
+        SQLInterface.clean();
+
+//        List<Person> person_list = new ArrayList<Person>();
+
+        SQLInterface.createLogin("Harambe", "asdf", "Harambe", 1);
+        SQLInterface.createLogin("ForeverAlone", "asdf", "ForeverAlone", 1);
+        SQLInterface.createLogin("Pepe", "asdf", "Pepe", 1);
+        SQLInterface.createLogin("WillyWonka", "asdf", "WillyWonka", 1);
     }
     @After
     public void tearDown() {
-        for (Person user: users) {
-            SQLInterface.deleteUser(user.getName());
-        }
+        SQLInterface.clean();
     }
     @Test
     public void updateUser() {
-        for (Person user : users) {
-            SQLInterface.updateUser(user);
-        }
+        Person p = new Person();
+        p.setHomeAddress(new HomeAddress());
+        p.setUsername("Harambe");
+        p.setName("Harambe");
+        p.setTitle("Gorilla");
+        SQLInterface.updateUser(p);
+        p.setUsername("ForeverAlone");
+        p.setName("ForeverAlone");
+        p.setTitle("Sad");
+        SQLInterface.updateUser(p);
+        p.setUsername("Pepe");
+        p.setName("Pepe");
+        p.setTitle("Frog");
+        SQLInterface.updateUser(p);
+        p.setUsername("WillyWonka");
+        p.setName("WillyWonka");
+        p.setTitle("TellMeMore");
+        SQLInterface.updateUser(p);
         assertTrue(SQLInterface.authenticate("Harambe", "asdf").getTitle().equals("Gorilla"));
         assertTrue(SQLInterface.authenticate("ForeverAlone", "asdf").getTitle().equals("Sad"));
         assertTrue(SQLInterface.authenticate("Pepe", "asdf").getTitle().equals("Frog"));

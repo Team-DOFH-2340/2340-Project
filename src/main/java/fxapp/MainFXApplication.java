@@ -1,15 +1,15 @@
-package fxapp;
+package main.java.fxapp;
 
-import controller.LoginController;
-import controller.MainScreenController;
-import controller.SQLInterface;
+import main.java.controller.LoginController;
+import main.java.controller.MainScreenController;
+import main.java.controller.SQLInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Person;
+import main.java.model.Person;
 
 import java.io.IOException;
 
@@ -27,6 +27,7 @@ public class MainFXApplication extends Application {
     public void start(Stage stage) throws Exception {
         SQLInterface.init();
         SQLInterface.checkDatabase();
+        SQLInterface.clean();
         boolean loggedIn = showLogin();
         if (!loggedIn) {
             return;
@@ -41,7 +42,7 @@ public class MainFXApplication extends Application {
     private boolean showLogin() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("/login.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("login.fxml"));
         Parent loginRoot = loader.load();
         Scene scene = new Scene(loginRoot, 500, 400);
         LoginController controller = loader.getController();
@@ -60,7 +61,7 @@ public class MainFXApplication extends Application {
      */
     private void initRootLayout(Stage mainScreen) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainFXApplication.class.getResource("/main.fxml"));
+        loader.setLocation(MainFXApplication.class.getResource("main.fxml"));
         try {
             rootLayout = loader.load();
         } catch (IOException e) {

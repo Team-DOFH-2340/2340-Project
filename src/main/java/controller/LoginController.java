@@ -1,6 +1,6 @@
-package controller;
+package main.java.controller;
 
-import fxapp.MainFXApplication;
+import main.java.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,7 +57,7 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader();
             stage.initModality(Modality.APPLICATION_MODAL);
-            loader.setLocation(MainFXApplication.class.getResource("/register.fxml"));
+            loader.setLocation(MainFXApplication.class.getResource("register.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root, 400, 300);
             stage.setTitle("Registration");
