@@ -36,12 +36,6 @@ public class TrendController implements Initializable {
 
     public TrendController(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
         System.out.println("Constructed with args.");
-        LocalDate startDate1 = startDate;
-        LocalDate endDate1 = endDate;
-        Double latitude1 = latitude;
-        Double longitude1 = longitude;
-        Double radius1 = radius;
-        TrendReportType type1 = type;
 
     }
     /** Called as the Controller is starting. */

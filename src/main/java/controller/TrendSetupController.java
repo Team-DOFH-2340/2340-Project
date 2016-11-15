@@ -32,9 +32,6 @@ public class TrendSetupController {
         typeField.getItems().setAll(TrendReportType.values());
     }
 
-    public void setUser(Person user) {
-    }
-
     /** Creates a new WaterSourceReport and populates its data from the view. */
     public void submit() throws Exception { // TODO REMOVE
         try {
@@ -64,11 +61,6 @@ public class TrendSetupController {
             alert.setContentText("Invalid numerical field");
             alert.showAndWait();
         }
-    }
-
-    /** Called to give a reference to the main controller. */
-    public void linkMainController(MainScreenController controller) {
-        //MainScreenController mainscreencontroller = controller;
     }
 
     /** Closes the window. */

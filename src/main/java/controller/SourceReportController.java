@@ -37,6 +37,7 @@ public class SourceReportController {
 
     private MainScreenController mainscreencontroller;
 
+    @SuppressWarnings("unused")
     @FXML
     private void initialize() {
         typeField.getItems().setAll(WaterSourceType.values());
