@@ -8,6 +8,16 @@ public class WaterQualityReport extends Report {
     private double virusPPM;
     private double contaminantPPM;
 
+    public WaterQualityReport() {
+
+    }
+
+    public WaterQualityReport(Condition condition, double virusPPM, double contaminantPPM) {
+        this.condition = condition;
+        this.virusPPM = virusPPM;
+        this.contaminantPPM = contaminantPPM;
+    }
+
     public Condition getCondition() {
         return condition;
     }
