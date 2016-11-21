@@ -36,7 +36,7 @@ public class TrendSetupController {
     public void submit() throws Exception { // TODO REMOVE
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trendview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("trendview.fxml"));
             Parent loginRoot = loader.load();
             Scene scene = new Scene(loginRoot, 800, 600);
             loader.setRoot(scene);
