@@ -25,8 +25,7 @@ public class MainFXApplication extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        SQLInterface.init();
-        SQLInterface.checkDatabase();
+        SQLInterface.getInstance().checkDatabase();
         boolean loggedIn = showLogin();
         if (!loggedIn) {
             return;

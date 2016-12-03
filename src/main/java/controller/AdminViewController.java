@@ -78,7 +78,7 @@ public class AdminViewController {
 
     /** Loads data from database into the admin view table. */
     public void loadData() {
-        Collection<Person> people1 = SQLInterface.getAllUsersInSystem();
+        Collection<Person> people1 = SQLInterface.getInstance().getAllUsersInSystem();
 
         u_typeField.setCellValueFactory(new PropertyValueFactory<>("type"));
         u_titleField.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -91,7 +91,7 @@ public class AdminViewController {
             userView.getItems().add(person);
         }
 
-        Collection<WaterSourceReport> reports1 = SQLInterface.getAllSourceReportsInSystem();
+        Collection<WaterSourceReport> reports1 = SQLInterface.getInstance().getAllSourceReportsInSystem();
 
         s_idField.setCellValueFactory(new PropertyValueFactory<>("report_id"));
         s_usernameField.setCellValueFactory(new PropertyValueFactory<>("reportedBy"));
@@ -107,7 +107,7 @@ public class AdminViewController {
             sourceView.getItems().add(report);
         }
 
-        Collection<WaterQualityReport> reports2 = SQLInterface.getAllQualityReportsInSysten();
+        Collection<WaterQualityReport> reports2 = SQLInterface.getInstance().getAllQualityReportsInSysten();
 
         q_idField.setCellValueFactory(new PropertyValueFactory<>("report_id"));
         q_usernameField.setCellValueFactory(new PropertyValueFactory<>("reportedBy"));
@@ -127,7 +127,7 @@ public class AdminViewController {
         sourceView.setOnKeyPressed(t -> {
             if (t.getCode() == KeyCode.DELETE) {
                 WaterSourceReport report = sourceView.getSelectionModel().getSelectedItem();
-                SQLInterface.deleteReport("WaterSource", report.getReport_id());
+                SQLInterface.getInstance().deleteReport("WaterSource", report.getReport_id());
                 sourceView.getItems().remove(report);
                 try {
                     mainscreencontroller.removePin(false, report.getReport_id());
@@ -140,7 +140,7 @@ public class AdminViewController {
         qualityView.setOnKeyPressed(t -> {
             if (t.getCode() == KeyCode.DELETE) {
                 WaterQualityReport report = qualityView.getSelectionModel().getSelectedItem();
-                SQLInterface.deleteReport("WaterQuality", report.getReport_id());
+                SQLInterface.getInstance().deleteReport("WaterQuality", report.getReport_id());
                 qualityView.getItems().remove(report);
                 try {
                     mainscreencontroller.removePin(true, report.getReport_id());

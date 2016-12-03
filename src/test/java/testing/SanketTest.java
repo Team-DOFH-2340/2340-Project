@@ -28,17 +28,17 @@ public class SanketTest {
     @After
     public void tearDown() {
         for (WaterQualityReport report : reports) {
-            SQLInterface.deleteReport("WaterQuality", report.getReport_id());
+            SQLInterface.getInstance().deleteReport("WaterQuality", report.getReport_id());
         }
     }
     @Test
     public void putInDatabase() {
-        reports.stream().forEach(e->{SQLInterface.createWaterQualityReport(e);});
+        reports.stream().forEach(e->{SQLInterface.getInstance().createWaterQualityReport(e);});
     }
 
     @Test
     public void checkDatabase() {
-        SQLInterface.getAllQualityReportsInSysten().forEach(e->reports.remove(e));
+        SQLInterface.getInstance().getAllQualityReportsInSysten().forEach(e->reports.remove(e));
         assertTrue(reports.size() == 0);
     }
 

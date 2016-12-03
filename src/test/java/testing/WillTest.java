@@ -17,19 +17,19 @@ public class WillTest {
     private ArrayList<Person> users = new ArrayList<>();
     @Before
     public void setUp() {
-        if (SQLInterface.createLogin("Harambe", "asdf", "Harambe", 1)) {
+        if (SQLInterface.getInstance().createLogin("Harambe", "asdf", "Harambe", 1)) {
             users.add(new Person("Harambe", "Harambe"));
             users.get(0).setTitle("Gorilla");
         }
-        if (SQLInterface.createLogin("ForeverAlone", "asdf", "ForeverAlone", 1)) {
+        if (SQLInterface.getInstance().createLogin("ForeverAlone", "asdf", "ForeverAlone", 1)) {
             users.add(new Person("ForeverAlone", "ForeverAlone"));
             users.get(1).setTitle("Sad");
         }
-        if (SQLInterface.createLogin("Pepe", "asdf", "Pepe", 1)) {
+        if (SQLInterface.getInstance().createLogin("Pepe", "asdf", "Pepe", 1)) {
             users.add(new Person("Pepe", "Pepe"));
             users.get(2).setTitle("Frog");
         }
-        if (SQLInterface.createLogin("WillyWonka", "asdf", "WillyWonka", 1)) {
+        if (SQLInterface.getInstance().createLogin("WillyWonka", "asdf", "WillyWonka", 1)) {
             users.add(new Person("WillyWonka", "WillyWonka"));
             users.get(3).setTitle("TellMeMore");
         }
@@ -37,17 +37,17 @@ public class WillTest {
     @After
     public void tearDown() {
         for (Person user: users) {
-            SQLInterface.deleteUser(user.getName());
+            SQLInterface.getInstance().deleteUser(user.getName());
         }
     }
     @Test
     public void updateUser() {
         for (Person user : users) {
-            SQLInterface.updateUser(user);
+            SQLInterface.getInstance().updateUser(user);
         }
-        assertTrue(SQLInterface.authenticate("Harambe", "asdf").getTitle().equals("Gorilla"));
-        assertTrue(SQLInterface.authenticate("ForeverAlone", "asdf").getTitle().equals("Sad"));
-        assertTrue(SQLInterface.authenticate("Pepe", "asdf").getTitle().equals("Frog"));
-        assertTrue(SQLInterface.authenticate("WillyWonka", "asdf").getTitle().equals("TellMeMore"));
+        assertTrue(SQLInterface.getInstance().authenticate("Harambe", "asdf").getTitle().equals("Gorilla"));
+        assertTrue(SQLInterface.getInstance().authenticate("ForeverAlone", "asdf").getTitle().equals("Sad"));
+        assertTrue(SQLInterface.getInstance().authenticate("Pepe", "asdf").getTitle().equals("Frog"));
+        assertTrue(SQLInterface.getInstance().authenticate("WillyWonka", "asdf").getTitle().equals("TellMeMore"));
     }
 }

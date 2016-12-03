@@ -84,7 +84,7 @@ public class QualityReportController {
             newReport.setContaminantPPM(Double.parseDouble(contaminantField.getText()));
             newReport.setVirusPPM(Double.parseDouble(virusField.getText()));
             newReport.setCondition(conditionField.getValue());
-            SQLInterface.createWaterQualityReport(newReport);
+            SQLInterface.getInstance().createWaterQualityReport(newReport);
             System.out.println("Report entered successfully");
             // Refresh unconditionally from controller upon return instead of this?
             mainscreencontroller.addPin(newReport);

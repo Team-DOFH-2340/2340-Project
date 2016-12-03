@@ -46,7 +46,7 @@ public class RegistrationController {
             alert.showAndWait();
             return;
         }
-        if (controller.SQLInterface.createLogin(usernameField.getText(), passwordField.getText(), nameField.getText(), userTypeField.getValue().ordinal())) {
+        if (controller.SQLInterface.getInstance().createLogin(usernameField.getText(), passwordField.getText(), nameField.getText(), userTypeField.getValue().ordinal())) {
             System.out.println("registration successful");
             hasRegistered = true;
             ((Stage) passwordField.getScene().getWindow()).close();

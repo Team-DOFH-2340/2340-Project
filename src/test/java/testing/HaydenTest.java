@@ -29,17 +29,17 @@ public class HaydenTest {
     @After
     public void tearDown() {
         for (WaterSourceReport report : reports) {
-            SQLInterface.deleteReport("WaterSource", report.getReport_id());
+            SQLInterface.getInstance().deleteReport("WaterSource", report.getReport_id());
         }
     }
     @Test
     public void putInDatabase() {
-        reports.stream().forEach(e->{SQLInterface.createWaterSourceReport(e);});
+        reports.stream().forEach(e->{SQLInterface.getInstance().createWaterSourceReport(e);});
     }
 
     @Test
     public void checkDatabase() {
-        SQLInterface.getAllSourceReportsInSystem().forEach(e->reports.remove(e));
+        SQLInterface.getInstance().getAllSourceReportsInSystem().forEach(e->reports.remove(e));
         //System.out.println(reports.size());
         assertTrue(reports.size() == 0);
     }

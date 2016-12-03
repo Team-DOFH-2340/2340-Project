@@ -42,7 +42,7 @@ public class EditProfileController {
         user.getHomeAddress().setLine3(addressLine3Field.getText());
         user.setTitle(titleField.getText());
         user.setEmail(emailField.getText());
-        SQLInterface.updateUser(user);
+        SQLInterface.getInstance().updateUser(user);
         ((Stage)emailField.getScene().getWindow()).close();
     }
 

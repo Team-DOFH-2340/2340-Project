@@ -8,10 +8,20 @@ import java.util.*;
 
 /** Gatekeeper to the database. */
 public class SQLInterface {
+    private static SQLInterface instance;
+    private SQLInterface() {
+        init();
+    }
+    public static SQLInterface getInstance() {
+        if (null == instance) {
+            instance = new SQLInterface();
+        }
+        return instance;
+    }
     /**
      * Initializes a connection with the database.
      */
-    public static void init() {
+    public void init() {
         try {
             Class.forName("org.sqlite.JDBC");
             DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -25,7 +35,7 @@ public class SQLInterface {
     /**
      * Checks to see all tables exist in the database. If not, create them
      */
-    public static void checkDatabase() {
+    public void checkDatabase() {
         Connection c;
         boolean createLogin = true;
         boolean createWaterSource = true;
@@ -60,7 +70,7 @@ public class SQLInterface {
         }
     }
 
-    private static void createLoginTable() {
+    private void createLoginTable() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -86,7 +96,7 @@ public class SQLInterface {
         System.out.println("Table created successfully");
     }
 
-    private static void createWaterSourceTable() {
+    private void createWaterSourceTable() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -112,7 +122,7 @@ public class SQLInterface {
         System.out.println("Table created successfully");
     }
 
-    private static void createWaterQualityTable() {
+    private void createWaterQualityTable() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -148,7 +158,7 @@ public class SQLInterface {
      * @param usertype type of user to create
      * @return true on successful user creation; false on failure
      */
-    public static boolean createLogin(String username, String password, String name, int usertype) {
+    public boolean createLogin(String username, String password, String name, int usertype) {
         // TODO Refactor to take a Person object?
         if (duplicateUN(username)) {
             return false;
@@ -176,7 +186,7 @@ public class SQLInterface {
      * @param report the report to put in the database.
      * @return If the report was successfully put into the database.
      */
-    public static boolean createWaterSourceReport(WaterSourceReport report) {
+    public boolean createWaterSourceReport(WaterSourceReport report) {
         boolean success = false;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -201,7 +211,7 @@ public class SQLInterface {
      * @param report the report to put in the database.
      * @return If the report was successfully put into the database.
      */
-    public static boolean createWaterQualityReport(WaterQualityReport report) {
+    public boolean createWaterQualityReport(WaterQualityReport report) {
         boolean success = false;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -221,7 +231,7 @@ public class SQLInterface {
     }
 
     /** @return All reports in database. */
-    public static Collection<Report> getAllReportsInSystem() {
+    public Collection<Report> getAllReportsInSystem() {
         Collection<Report> working = new HashSet<>();
         working.addAll(getAllQualityReportsInSysten());
         working.addAll(getAllSourceReportsInSystem());
@@ -230,7 +240,7 @@ public class SQLInterface {
     /**
      * @return All of the waterSourceReports in the database.
      */
-    public static Collection<WaterSourceReport> getAllSourceReportsInSystem() {
+    public Collection<WaterSourceReport> getAllSourceReportsInSystem() {
         ArrayList<WaterSourceReport> collection = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
@@ -252,7 +262,7 @@ public class SQLInterface {
     /**
      * @return All of the waterqualityReports in the database.
      */
-    public static Collection<WaterQualityReport> getAllQualityReportsInSysten() {
+    public Collection<WaterQualityReport> getAllQualityReportsInSysten() {
         ArrayList<WaterQualityReport> collection = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
@@ -283,7 +293,7 @@ public class SQLInterface {
     /**
      * @return All of the users in the database.
      */
-    public static Collection<Person> getAllUsersInSystem() {
+    public Collection<Person> getAllUsersInSystem() {
         ArrayList<Person> collection = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
@@ -314,7 +324,7 @@ public class SQLInterface {
      * @param username to check
      * @return if username was already found in database
      */
-    private static boolean duplicateUN(String username) {
+    private boolean duplicateUN(String username) {
         boolean dup = false;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -336,7 +346,7 @@ public class SQLInterface {
      * @param password to check
      * @return Person class holding all credentials about that user, null if not found
      */
-    public static Person authenticate(String username, String password) {
+    public Person authenticate(String username, String password) {
         Person activeUser = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -367,7 +377,7 @@ public class SQLInterface {
     /**
      * @param user The user to update in the database.
      */
-    public static void updateUser(Person user) {
+    public void updateUser(Person user) {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -390,7 +400,7 @@ public class SQLInterface {
         }
     }
 
-    public static void deleteReport(String table, int report_id) {
+    public void deleteReport(String table, int report_id) {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -403,7 +413,7 @@ public class SQLInterface {
         }
     }
 
-    public static void deleteUser(String username) {
+    public void deleteUser(String username) {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");

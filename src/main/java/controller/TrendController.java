@@ -52,7 +52,7 @@ public class TrendController implements Initializable {
     }
 
     public void setUp(LocalDate startDate, LocalDate endDate, Double latitude, Double longitude, Double radius, TrendReportType type) {
-        Collection<WaterQualityReport> a = SQLInterface.getAllQualityReportsInSysten();
+        Collection<WaterQualityReport> a = SQLInterface.getInstance().getAllQualityReportsInSysten();
         LatLong searchPoint = new LatLong(latitude, longitude);
 
 

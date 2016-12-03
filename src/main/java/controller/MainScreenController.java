@@ -159,7 +159,7 @@ public class MainScreenController implements Initializable, MapComponentInitiali
 
     /** Loads all of the reports from the database and puts pins for them on the map. */
     private void createMapPins() {
-        Collection<Report> reports = SQLInterface.getAllReportsInSystem();
+        Collection<Report> reports = SQLInterface.getInstance().getAllReportsInSystem();
         for (Report report: reports) {
             Marker tMarker = new Marker(new MarkerOptions().position(new LatLong(
                     report.getLatitude(), report.getLongitude())).icon(report.getIconURL()), map, report);

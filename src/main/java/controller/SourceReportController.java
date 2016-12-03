@@ -86,7 +86,7 @@ public class SourceReportController {
         newReport.setLongitude(Double.parseDouble(longitudeField.getText()));
         newReport.setType(typeField.getValue());
         newReport.setCondition(conditionField.getValue());
-        SQLInterface.createWaterSourceReport(newReport);
+        SQLInterface.getInstance().createWaterSourceReport(newReport);
         System.out.println(newReport.getType().toString());
         System.out.println("Report entered successfully");
         // Refresh unconditionally from controller upon return instead of this?
