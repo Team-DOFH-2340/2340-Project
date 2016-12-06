@@ -13,8 +13,8 @@ public class SQLInterface {
      */
     public static void init() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -31,8 +31,8 @@ public class SQLInterface {
         boolean createWaterSource = true;
         boolean createWaterQuality = true;
         try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             DatabaseMetaData md = c.getMetaData();
             ResultSet rs = md.getTables(null, null, "%", null);
             while (rs.next()) {
@@ -62,8 +62,8 @@ public class SQLInterface {
 
     private static void createLoginTable() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = "CREATE TABLE User("
                     + "Username VARCHAR(32) PRIMARY KEY,"
@@ -88,8 +88,8 @@ public class SQLInterface {
 
     private static void createWaterSourceTable() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = "CREATE TABLE WaterSource("
                     + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -97,10 +97,10 @@ public class SQLInterface {
                     + "Date CHARACTER(10),"
                     + "Hour INTEGER,"
                     + "Minute INTEGER,"
-                    + "Latitude NUMERIC,"
-                    + "Longitude NUMERIC,"
+                    + "Latitude REAL,"
+                    + "Longitude REAL,"
                     + "Type INTEGER,"
-                    + "Condition INTEGER"
+                    + "Con INTEGER"
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -114,8 +114,8 @@ public class SQLInterface {
 
     private static void createWaterQualityTable() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = "CREATE TABLE WaterQuality("
                     + "ReportNumber INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -123,11 +123,11 @@ public class SQLInterface {
                     + "Date CHARACTER(10),"
                     + "Hour INTEGER,"
                     + "Minute INTEGER,"
-                    + "Latitude NUMERIC,"
-                    + "Longitude NUMERIC,"
-                    + "VirusPPM NUMERIC,"
-                    + "ContaminantPPM NUMERIC,"
-                    + "Condition INTEGER"
+                    + "Latitude REAL,"
+                    + "Longitude REAL,"
+                    + "VirusPPM REAL,"
+                    + "ContaminantPPM REAL,"
+                    + "Con INTEGER"
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -154,8 +154,8 @@ public class SQLInterface {
             return false;
         } else {
             try {
-                Class.forName("org.sqlite.JDBC");
-                Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
                 Statement stmt = c.createStatement();
                 String sql = String.format("INSERT INTO User(Username,Password, Name, Title, Email, AddressLine1, AddressLine2, AddressLine3, Usertype) VALUES('%s','%s', '%s', 'Duelmaster', '', '', '', '', '%s')",
                         username, password, name, usertype);
@@ -179,10 +179,10 @@ public class SQLInterface {
     public static boolean createWaterSourceReport(WaterSourceReport report) {
         boolean success = false;
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
-            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%d', '%d')",
+            String sql = String.format("INSERT INTO WaterSource(User, Date, Hour, Minute, Latitude, Longitude, Type, Con) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%d', '%d')",
                     report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getType().ordinal(), report.getCondition().ordinal());
             stmt.executeUpdate(sql);
             stmt.close();
@@ -204,10 +204,10 @@ public class SQLInterface {
     public static boolean createWaterQualityReport(WaterQualityReport report) {
         boolean success = false;
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
-            String sql = String.format("INSERT INTO WaterQuality(User, Date, Hour, Minute, Latitude, Longitude, VirusPPM, ContaminantPPM, Condition) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%f', '%f', '%d')",
+            String sql = String.format("INSERT INTO WaterQuality(User, Date, Hour, Minute, Latitude, Longitude, VirusPPM, ContaminantPPM, Con) VALUES('%s','%s', '%d', '%d', '%f', '%f', '%f', '%f', '%d')",
                     report.getReportedBy(), report.getDate().toString(), report.getHour(), report.getMinute(), report.getLatitude(), report.getLongitude(), report.getVirusPPM(), report.getContaminantPPM(), report.getCondition().ordinal());
             stmt.executeUpdate(sql);
             stmt.close();
@@ -233,8 +233,8 @@ public class SQLInterface {
     public static Collection<WaterSourceReport> getAllSourceReportsInSystem() {
         ArrayList<WaterSourceReport> collection = new ArrayList<>();
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM WaterSource");
             while (rs.next()) {
@@ -255,8 +255,8 @@ public class SQLInterface {
     public static Collection<WaterQualityReport> getAllQualityReportsInSysten() {
         ArrayList<WaterQualityReport> collection = new ArrayList<>();
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM WaterQuality");
             while (rs.next()) {
@@ -286,8 +286,8 @@ public class SQLInterface {
     public static Collection<Person> getAllUsersInSystem() {
         ArrayList<Person> collection = new ArrayList<>();
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM User");
             while (rs.next()) {
@@ -317,8 +317,8 @@ public class SQLInterface {
     private static boolean duplicateUN(String username) {
         boolean dup = false;
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT Username FROM User WHERE Username = '%s'", username));
             while (rs.next()) {
@@ -339,8 +339,8 @@ public class SQLInterface {
     public static Person authenticate(String username, String password) {
         Person activeUser = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = String.format("Select * FROM User WHERE Username = '%s' AND Password = '%s'",
                     username, password);
@@ -369,8 +369,8 @@ public class SQLInterface {
      */
     public static void updateUser(Person user) {
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = "UPDATE User SET "
                     + "Title = '" + user.getTitle() + "', "
@@ -392,8 +392,8 @@ public class SQLInterface {
 
     public static void deleteReport(String table, int report_id) {
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = String.format("DELETE from %s where ReportNumber=%d;", table, report_id);
             stmt.executeUpdate(sql);
@@ -405,8 +405,8 @@ public class SQLInterface {
 
     public static void deleteUser(String username) {
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c = DriverManager.getConnection("jdbc:mysql://2340.kberzin.ch/harambe", "app", "root");
             Statement stmt = c.createStatement();
             String sql = String.format("DELETE from User where Username ='%s';", username);
             stmt.executeUpdate(sql);

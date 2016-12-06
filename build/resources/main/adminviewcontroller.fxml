@@ -24,7 +24,7 @@
         </TableView>
     </Tab>
 
-    <Tab text="Water Soure Reports" closable="false">
+    <Tab text="Water Source Reports" closable="false">
         <TableView fx:id="sourceView" GridPane.columnIndex="0"
                    GridPane.rowIndex="1">
             <columns>

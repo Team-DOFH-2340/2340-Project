@@ -61,7 +61,7 @@
         <Button text="Submit" fx:id="submitBtn"
                 onMouseClicked="#submit"
                 GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <Button text="Cancel" fx:id="CancelBtn"
+        <Button text="Cancel"
                 onMouseClicked="#cancel"
                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
     </GridPane>
